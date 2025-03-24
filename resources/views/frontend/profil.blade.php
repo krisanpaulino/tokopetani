@@ -36,11 +36,18 @@
                         <td>{{$user->pembeli->city->city}}</td>
                     </tr>
                     <tr>
-                        <th>Kota</th>
+                        <th>Provinsi</th>
                         <td>{{$user->pembeli->province->province}}</td>
+                    </tr>
+                    <tr>
+                        <th>Kode Pos</th>
+                        <td>{{$user->pembeli->alamat_kodepos}}</td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+        <div class="text-start">
+            <a href="{{ route('profil.edit') }}" class="btn border border-secondary rounded-pill px-3 text-primary">Edit Profil</a>
         </div>
         <div class="text-end">
             <a href="{{ route('logout') }}" class="btn border border-secondary rounded-pill px-3 text-primary">Logout</a>

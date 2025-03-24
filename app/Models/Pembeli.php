@@ -27,7 +27,7 @@ class Pembeli extends Model
     }
     function province(): BelongsTo
     {
-        return $this->belongsTo(Province::class, 'alamat_kota', 'province_id')->withDefault([
+        return $this->belongsTo(Province::class, 'alamat_provinsi', 'province_id')->withDefault([
             'province' => 'no data'
         ]);
     }

@@ -72,6 +72,8 @@ class TransaksiController extends Controller
         $title = 'Detail Order';
         $pembelian = Pembelian::find($id);
         $detail = $pembelian->detailpembelian;
+        // $detail = Detailpembelian::join('produk', 'detailpembelian.produk_id', '=', 'produk.produk_id')
+        //     ->where('pembelian_id', '=', $id)->get();
         // dd($detail);
         $ongkir = new Pengiriman();
         $ongkir->biaya = $pembelian->ongkir;
@@ -89,7 +91,7 @@ class TransaksiController extends Controller
                 ->join('produk', 'detailpembelian.produk_id', '=', 'produk.produk_id')
                 ->join('pengiriman', 'pengiriman.pembelian_id', '=', 'pembelian.pembelian_id')
                 // ->where('status_pembelian', '=', 'diproses')
-                ->where('petani_id', '=', $this->user->petani->petani_id)
+                ->where('produk.petani_id', '=', $this->user->petani->petani_id)
                 ->where('status_pengiriman', '=', 'dikirim')
                 ->groupBy('pembelian.pembelian_id')
                 ->get();

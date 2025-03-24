@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Detailpembelian;
 use App\Models\Pembayaran;
 use App\Models\Produk;
@@ -9,18 +10,21 @@ use App\Models\Pembeli;
 use App\Models\Pembelian;
 use App\Models\Pengiriman;
 use App\Models\Petani;
+use App\Models\Province;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rule;
 
 class HomeController extends Controller
 {
     function index()
     {
         $title = 'Home Page';
-        $produk = Produk::paginate(12);
+        $produk = Produk::join('petani', 'petani.petani_id', '=', 'produk.petani_id')->orderBy('produk_id', 'desc')->paginate(12);
         return view('frontend.home', compact('title', 'produk'));
     }
 
@@ -28,7 +32,7 @@ class HomeController extends Controller
     {
         $title = 'Search';
         $keyword = $request->keyword;
-        $produk = Produk::where('nama_produk', 'LIKE', "%{$keyword}%")->paginate(12);
+        $produk = Produk::where('nama_produk', 'LIKE', "%{$keyword}%")->orderBy('produk_id', 'desc')->paginate(12);
         return view('frontend.home', compact('title', 'produk', 'keyword'));
     }
 
@@ -235,5 +239,14 @@ class HomeController extends Controller
         $title = 'Profil';
         $user = User::find(Session::get('user_id'));
         return view('frontend.profil', compact('user', 'title'));
+    }
+    function editProfil()
+    {
+        $title = 'Edit Profil';
+        $user = User::find(Session::get('user_id'));
+        $provinsi = Province::get();
+        $kota = City::get();
+        $pembeli = Pembeli::where('user_id', '=', Session::get('user_id'))->first();
+        return view('frontend.profil-edit', compact('user', 'title', 'pembeli', 'provinsi', 'kota'));
     }
 }

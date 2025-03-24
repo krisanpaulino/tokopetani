@@ -21,7 +21,7 @@
                     <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">
                         <div class="carousel-inner" role="listbox">
                             <div class="carousel-item active rounded">
-                                <img src="{{ asset('front') }}/img/hero-img-1.png"
+                                <img src="{{ asset('front') }}/img/hero-img-1.jpg"
                                     class="img-fluid w-100 h-100 bg-secondary rounded" alt="First slide">
                                 {{-- <a href="#" class="btn px-4 py-2 text-white rounded">Fruites</a> --}}
                             </div>
@@ -55,7 +55,7 @@
             @isset($keyword)
                 <h5>Search : "{{$keyword}}"</h5>
             @endisset
-            <h1 class="mb-4">Fresh fruits shop</h1>
+            <h1 class="mb-4">Petani shop</h1>
             <div class="row g-4">
                 <div class="col-lg-12">
                     <div class="row g-4">
@@ -92,7 +92,7 @@
                                                     class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                style="top: 10px; left: 10px;">Sayur</div>
+                                                style="top: 10px; left: 10px;">{{$r->petani->petani_nama}}</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                 <h4>{{ $r->nama_produk }}</h4>
                                                 <p>{{ $r->deskripsi }}</p>

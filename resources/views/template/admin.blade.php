@@ -86,6 +86,9 @@
                     <li class="">
                         <a href="{{ route('dashboard') }}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.produk') }}"> <i class="menu-icon ti-bag"></i>Produk Tersedia </a>
+                    </li>
                     <li class="menu-title">User</li><!-- /.menu-title -->
                     <li>
                         <a href="{{ route('petani.index') }}"> <i class="menu-icon ti-user"></i>Petani </a>
@@ -116,13 +119,18 @@
 
                         </ul>
                     </li>
-
+                    <li>
+                        <a href="{{ route(Session::get('type').'.laporan') }}"> <i class="menu-icon ti-clipboard"></i>Laporan </a>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside>
     <!-- /#left-panel -->
     <!-- Right Panel -->
+    @php
+        $notif = App\Models\Pembelian::where('status_pembelian', '=', 'verifikasi pembayaran')->count('pembelian_id')
+    @endphp
     <div id="right-panel" class="right-panel">
         <!-- Header-->
         <header id="header" class="header">
@@ -142,13 +150,13 @@
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
-                                {{-- <span class="count bg-danger">3</span> --}}
+                                <span class="count bg-danger">{{$notif}}</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
-                                {{-- <a class="dropdown-item media" href="#">
+                                <a class="dropdown-item media" href="{{route('admin.order.masuk')}}">
                                     <i class="fa fa-cart"></i>
-                                    <p>Anda punya 3 pesanan menunggu verifikasi!</p>
-                                </a> --}}
+                                    <p>Anda punya {{$notif}} pesanan menunggu verifikasi!</p>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -229,6 +237,8 @@
     <script src="{{ asset('/') }}assets/js/init/datatables-init.js"></script>
 
     <script src="{{ asset('/') }}assets/js/lib/chosen/chosen.jquery.min.js"></script>
+
+    @yield('scripts')
     <!--Local Stuff-->
     <script>
         jQuery(document).ready(function() {

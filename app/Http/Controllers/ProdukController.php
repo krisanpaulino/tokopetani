@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Petani;
 use App\Models\Produk;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -82,5 +83,30 @@ class ProdukController extends Controller
         $stok = $request->stok;
         $produk->increment('stok', $stok);
         return redirect(route('produk.index'));
+    }
+
+    function delete(Request $request)
+    {
+        $produk_id = $request->produk_id;
+        Produk::destroy($produk_id);
+        return back()->with('success', 'Data produk berhasil dihapus')->with('message', 'successToast("Data produk berhasil dihapus")');
+    }
+
+    //Untuk Admin
+    function tersedia()
+    {
+        $title = 'Produk Tersedia';
+        $produk = Produk::where('stok', '>', '0')->get();
+
+        return view('backend.produk_tersedia', compact('title', 'produk'));
+    }
+
+    function byPetani($petani_id)
+    {
+        $petani = Petani::find($petani_id);
+        $produk = Produk::where('petani_id', '=', $petani_id)->get();
+        $title = 'Produk Petani';
+
+        return view('backend.produk_tersedia', compact('title', 'produk', 'petani'));
     }
 }

@@ -30,12 +30,15 @@
 
                 <div class="row">
                     <div class="col-xl-12">
-                        <a href="{{ route('produk.tambah') }}" class="btn btn-primary mb-4">Tambah Produk</a>
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="box-title">Produk </h4>
+                                <h4 class="box-title">{{$title}}</h4>
+                             @isset($petani)
+                                <span>Nama Petani : {{$petani->petani_nama}}</span>
+                             @endisset
                             </div>
                             <div class="card-body">
+                                <br>
                                 <div class="table-stats order-table ov-h">
                                     <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                         <thead>
@@ -46,8 +49,8 @@
                                                 <th>Harga</th>
                                                 <th>Stok</th>
                                                 <th>Satuan</th>
-                                                <th>Deskripsi</th>
-                                                <th>Action</th>
+                                                <th>Petani</th>
+                                                {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -65,13 +68,7 @@
                                                     <td>{{ number_format($r->harga) }} </td>
                                                     <td><span class="count">{{ $r->stok }}</span></td>
                                                     <td> <span class="product">{{ $r->satuan }}</span> </td>
-                                                    <td> <span class="product">{{ $r->deskripsi }}</span> </td>
-                                                    <td>
-                                                        <a class="badge badge-complete"
-                                                            href="{{ route('produk.edit', $r->produk_id) }}">Edit</a>
-                                                        <a class="badge badge-danger" href="javascriptt:;" data-target="#hapus"
-                                                            data-toggle="modal" data-id="{{ $r->produk_id }}">Hapus</a>
-                                                    </td>
+                                                    <td> <span class="product">{{ $r->petani->petani_nama }}</span> </td>
                                                 </tr>
                                             @endforeach
 
@@ -85,41 +82,5 @@
                 </div>
             </div>
         </div><!-- .animated -->
-        <div class="modal fade" id="hapus" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="mediumModalLabel">Hapus Produk</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="{{route('produk.delete')}}" method="post">
-                        @csrf
-                        <input type="hidden" name="produk_id" id="kodeitemhapus" value="">
-                        <div class="modal-body">
-                            <p>
-                                Yakin ingin menghapus produk ?
-                            </p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Confirm</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
     </div><!-- .content -->
-@endsection
-@section('scripts')
-    <script>
-         $('#hapus').on('show.bs.modal', function(event) {
-            var kode = $(event.relatedTarget).data('id');
-            console.log(kode);
-
-            $(this).find('#kodeitemhapus').attr("value", kode);
-        });
-    </script>
 @endsection

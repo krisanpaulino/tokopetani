@@ -22,6 +22,8 @@ class Produk extends Model
 
     function petani(): BelongsTo
     {
-        return $this->belongsTo(Petani::class, 'petani_id', 'petani_id');
+        return $this->belongsTo(Petani::class, 'petani_id', 'petani_id')->withDefault([
+            'petani_nama' => 'petani'
+        ]);
     }
 }

@@ -71,11 +71,15 @@
                                         <tbody>
                                             <?php $no = 1; ?>
                                             @foreach ($detail as $r)
+                                            @php
+                                                if($r->gambar == null)
+                                                $r->gambar='';
+                                            @endphp
                                                 <tr>
                                                     <td class="serial">{{ $no++ }}</td>
                                                     <td class="avatar">
                                                         <div class="round-img"><a href="#"><img class="rounded-circle"
-                                                                    src="{{ asset('storage/' . $r->produk->gambar) }}"
+                                                                    src="{{ Storage::disk('public')->exists($r->gambar) ? asset('storage/' . $r->gambar) : asset('storage/produk/default.jpg') }}"
                                                                     alt=""></a>
                                                         </div>
                                                     </td>

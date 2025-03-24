@@ -88,7 +88,7 @@
                     </li>
                     <li class="menu-title">Toko</li><!-- /.menu-title -->
                     <li>
-                        <a href="{{ route('produk.index') }}"> <i class="menu-icon ti-user"></i>Produk </a>
+                        <a href="{{ route('produk.index') }}"> <i class="menu-icon ti-bag"></i>Produk </a>
                     </li>
                     <li class="menu-title">Order</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
@@ -113,13 +113,24 @@
 
                         </ul>
                     </li>
-
+                    <li>
+                        <a href="{{ route(Session::get('type').'.laporan') }}"> <i class="menu-icon ti-clipboard"></i>Laporan </a>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside>
     <!-- /#left-panel -->
     <!-- Right Panel -->
+    @php
+        $user = App\Models\User::find(Session::get('user_id'));
+         $notif = App\Models\Pembelian::join('detailpembelian', 'detailpembelian.pembelian_id', '=', 'pembelian.pembelian_id')
+                ->join('produk', 'detailpembelian.produk_id', '=', 'produk.produk_id')
+                ->where('status_pembelian', '=', 'diproses')
+                ->where('produk.petani_id', '=', $user->petani->petani_id)
+                ->groupBy('pembelian.pembelian_id')
+                ->count();
+    @endphp
     <div id="right-panel" class="right-panel">
         <!-- Header-->
         <header id="header" class="header">
@@ -141,13 +152,13 @@
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-bell"></i>
-                                {{-- <span class="count bg-danger">3</span> --}}
+                                <span class="count bg-danger">{{$notif}}</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
-                                {{-- <a class="dropdown-item media" href="#">
+                                <a class="dropdown-item media" href="#">
                                     <i class="fa fa-cart"></i>
-                                    <p>Anda punya 3 pesanan menunggu verifikasi!</p>
-                                </a> --}}
+                                    <p>Anda punya {{$notif}} pesanan masuk!</p>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -155,7 +166,7 @@
                     <div class="user-area dropdown float-right">
                         <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            <img class="user-avatar rounded-circle" src="{{ asset('images') }}/admin.jpg"
+                            <img class="user-avatar rounded-circle" src="{{ asset('images') }}/petani.png"
                                 alt="User Avatar">
                         </a>
 
@@ -229,6 +240,8 @@
     <script src="{{ asset('/') }}assets/js/init/datatables-init.js"></script>
 
     <script src="{{ asset('/') }}assets/js/lib/chosen/chosen.jquery.min.js"></script>
+    @yield('scripts')
+
     <!--Local Stuff-->
     <script>
         jQuery(document).ready(function() {

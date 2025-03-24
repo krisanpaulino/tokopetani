@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rule;
 
 class AuthController extends Controller
 {
@@ -81,5 +82,22 @@ class AuthController extends Controller
     {
         Session::flush();
         return redirect('/');
+    }
+
+    //here
+    function gantiPassword(Request $request)
+    {
+        $user = User::find(Session::get('user_id'));
+        if (Hash::check($request->current_password, $user->user_password)) {
+            $userdata = $request->validate([
+                'username' => ['required', Rule::unique('user', 'username')->ignore(Session::get('user_id'), 'user_id')],
+                'user_password' => 'required|confirmed:password_confirmation',
+                'password_confirmation' => 'required'
+            ]);
+            unset($userdata['password_confirmation']);
+            $userdata['user_password'] = Hash::make($userdata['user_password']);
+
+            $user->update($userdata);
+        }
     }
 }

@@ -44,7 +44,7 @@
                                     <th>Desa/Kelurahan</th>
                                     <th>Kota</th>
                                     <th>Provinsi</th>
-                                    {{-- <th>Action</th> --}}
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,9 +57,9 @@
                                     <td>{{ $r->city->city }}</td>
                                     <td>{{ $r->province->province }}</td>
                                     {{-- <td>{{ $r->petani_hp }}</td> --}}
-                                    {{-- <td>
-                                        <a class="btn btn-link btn-sm" href="{{ route('petani.detail', $r->petani_id) }}"><i class="fa fa-eye"></i>&nbsp; Detail</a>
-                                    </td> --}}
+                                    <td>
+                                        <a class="btn btn-link btn-sm" href="{{ route('pembeli.edit', $r->pembeli_id) }}"><i class="fa fa-pencil"></i>&nbsp; Edit</a>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

@@ -78,7 +78,7 @@ class LaporanController extends Controller
             if ($sampai != null)
                 $pembelian->where(DB::raw('CAST(tanggal_pesan AS DATE)'), '<=', $sampai);
             $laporan = $pembelian->get();
-            dd($laporan);
+            // dd($laporan);
         }
 
         $data = [

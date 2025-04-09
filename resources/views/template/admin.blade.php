@@ -74,10 +74,6 @@
         #cellPaiChart {
             height: 160px;
         }
-
-        .active {
-            background-color: #0a6a0d
-        }
     </style>
 </head>
 

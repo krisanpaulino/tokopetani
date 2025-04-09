@@ -23,9 +23,16 @@
                                 </div>
                                 <div class="stat-content">
                                     <div class="text-left dib">
-                                        <div class="stat-text"><span class="count">{{$masuk}}</span></div>
+                                        <div class="stat-text"><span class="count">{{ $masuk }}</span></div>
                                         <div class="stat-heading">Pesanan masuk</div>
+                                        <div>
+
+                                        </div>
                                     </div>
+                                </div>
+                                <div class="mt-4">
+                                    <a href="{{ route('admin.order.masuk') }}" class="text-primary text-small">Lihat
+                                        Selengkapnya</a>
                                 </div>
                             </div>
                         </div>
@@ -41,9 +48,13 @@
                                 </div>
                                 <div class="stat-content">
                                     <div class="text-left dib">
-                                        <div class="stat-text"><span class="count">{{$diproses}}</span></div>
+                                        <div class="stat-text"><span class="count">{{ $diproses }}</span></div>
                                         <div class="stat-heading">Pesanan Diproses</div>
                                     </div>
+                                </div>
+                                <div class="mt-4">
+                                    <a href="{{ route('admin.order.diproses') }}" class="text-primary text-small">Lihat
+                                        Selengkapnya</a>
                                 </div>
                             </div>
                         </div>
@@ -59,9 +70,13 @@
                                 </div>
                                 <div class="stat-content">
                                     <div class="text-left dib">
-                                        <div class="stat-text"><span class="count">{{$selesai}}</span></div>
+                                        <div class="stat-text"><span class="count">{{ $selesai }}</span></div>
                                         <div class="stat-heading">Pesanan Selesai</div>
                                     </div>
+                                </div>
+                                <div class="mt-4">
+                                    <a href="{{ route('admin.order.selesai') }}" class="text-primary text-small">Lihat
+                                        Selengkapnya</a>
                                 </div>
                             </div>
                         </div>

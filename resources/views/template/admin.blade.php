@@ -79,48 +79,58 @@
 
 <body>
     <!-- Left Panel -->
-    <aside id="left-panel" class="left-panel">
-        <nav class="navbar navbar-expand-sm navbar-default">
+    <aside id="left-panel" class="left-panel bg-success">
+        <nav class="navbar navbar-expand-sm navbar-default bg-success">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="">
-                        <a href="{{ route('dashboard') }}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                        <a style="color: #ffffff" href="{{ route('dashboard') }}"><i style="color: #ffffff"
+                                class="menu-icon fa fa-laptop" style="color: #ffffff"></i>Dashboard </a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.produk') }}"> <i class="menu-icon ti-bag"></i>Produk Tersedia </a>
+                        <a style="color: #ffffff" href="{{ route('admin.produk') }}"> <i style="color: #ffffff"
+                                class="menu-icon ti-bag"></i>Produk Tersedia </a>
                     </li>
-                    <li class="menu-title">User</li><!-- /.menu-title -->
+                    <li style="color: #ffffff" class="menu-title">User</li><!-- /.menu-title -->
                     <li>
-                        <a href="{{ route('petani.index') }}"> <i class="menu-icon ti-user"></i>Petani </a>
+                        <a style="color: #ffffff" href="{{ route('petani.index') }}"> <i style="color: #ffffff"
+                                class="menu-icon ti-user"></i>Petani </a>
                     </li>
                     <li>
-                        <a href="{{ route('pembeli.index') }}"> <i class="menu-icon ti-user"></i>Pembeli </a>
+                        <a style="color: #ffffff" href="{{ route('pembeli.index') }}"> <i style="color: #ffffff"
+                                class="menu-icon ti-user"></i>Pembeli </a>
                     </li>
-                    <li class="menu-title">Order</li><!-- /.menu-title -->
+                    <li style="color: #ffffff" class="menu-title">Order</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon ti-shopping-cart"></i>Order</a>
+                        <a style="color: #ffffff" href="#" class="dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false"> <i style="color: #ffffff"
+                                class="menu-icon ti-shopping-cart"></i>Order</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li>
-                                <a href="{{ route(Session::get('type') . '.order') }}"> Semua </a>
-                            </li>
-                            <li>
-                                <a href="{{ route(Session::get('type') . '.order.masuk') }}"> Orderan Masuk
+                                <a style="color: #ffffff" href="{{ route(Session::get('type') . '.order') }}"> Semua
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route(Session::get('type') . '.order.diproses') }}"> Orderan Diproses
+                                <a style="color: #ffffff" href="{{ route(Session::get('type') . '.order.masuk') }}">
+                                    Orderan Masuk
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route(Session::get('type') . '.order.selesai') }}"> Orderan Selesai
+                                <a style="color: #ffffff" href="{{ route(Session::get('type') . '.order.diproses') }}">
+                                    Orderan Diproses
+                                </a>
+                            </li>
+                            <li>
+                                <a style="color: #ffffff" href="{{ route(Session::get('type') . '.order.selesai') }}">
+                                    Orderan Selesai
                                 </a>
                             </li>
 
                         </ul>
                     </li>
                     <li>
-                        <a href="{{ route(Session::get('type').'.laporan') }}"> <i class="menu-icon ti-clipboard"></i>Laporan </a>
+                        <a style="color: #ffffff" href="{{ route(Session::get('type') . '.laporan') }}"> <i
+                                style="color: #ffffff" class="menu-icon ti-clipboard"></i>Laporan </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -129,14 +139,14 @@
     <!-- /#left-panel -->
     <!-- Right Panel -->
     @php
-        $notif = App\Models\Pembelian::where('status_pembelian', '=', 'verifikasi pembayaran')->count('pembelian_id')
+        $notif = App\Models\Pembelian::where('status_pembelian', '=', 'verifikasi pembayaran')->count('pembelian_id');
     @endphp
     <div id="right-panel" class="right-panel">
         <!-- Header-->
-        <header id="header" class="header">
+        <header id="header" class="header bg-success">
             <div class="top-left">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="./"><b class="text-success">TokoTani</b></a>
+                <div class="navbar-header bg-success">
+                    <a class="navbar-brand" href="./"><b class="text-light">TokoTani</b></a>
                     {{-- <a class="navbar-brand hidden" href="./"><img src="{{ asset('images') }}/logo2.png"
                             alt="Logo"></a> --}}
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
@@ -149,13 +159,13 @@
                         <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-bell"></i>
-                                <span class="count bg-danger">{{$notif}}</span>
+                                <i class="fa fa-bell text-light"></i>
+                                <span class="count bg-danger">{{ $notif }}</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
-                                <a class="dropdown-item media" href="{{route('admin.order.masuk')}}">
+                                <a class="dropdown-item media" href="{{ route('admin.order.masuk') }}">
                                     <i class="fa fa-cart"></i>
-                                    <p>Anda punya {{$notif}} pesanan menunggu verifikasi!</p>
+                                    <p>Anda punya {{ $notif }} pesanan menunggu verifikasi!</p>
                                 </a>
                             </div>
                         </div>
@@ -170,7 +180,8 @@
 
                         <div class="user-menu dropdown-menu">
 
-                            <a class="nav-link" href="{{ route('logout') }}"><i class="fa fa-power-off"></i>Logout</a>
+                            <a class="nav-link" href="{{ route('logout') }}"><i
+                                    class="fa fa-power-off"></i>Logout</a>
                         </div>
                     </div>
 

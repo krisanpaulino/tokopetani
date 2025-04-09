@@ -74,6 +74,10 @@
         #cellPaiChart {
             height: 160px;
         }
+
+        .active {
+            background-color: #0a6a0d
+        }
     </style>
 </head>
 
@@ -101,11 +105,11 @@
                                 class="menu-icon ti-user"></i>Pembeli </a>
                     </li>
                     <li style="color: #ffffff" class="menu-title">Order</li><!-- /.menu-title -->
-                    <li class="menu-item-has-children dropdown">
-                        <a style="color: #ffffff" href="#" class="dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false"> <i style="color: #ffffff"
+                    <li class="menu-item-has-children dropdown text-light">
+                        <a style="color: #ffffff" href="#" class="dropdown-toggle text-lights"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i style="color: #ffffff"
                                 class="menu-icon ti-shopping-cart"></i>Order</a>
-                        <ul class="sub-menu children dropdown-menu">
+                        <ul class="sub-menu children dropdown-menu bg-success">
                             <li>
                                 <a style="color: #ffffff" href="{{ route(Session::get('type') . '.order') }}"> Semua
                                 </a>
@@ -172,7 +176,7 @@
                     </div>
 
                     <div class="user-area dropdown float-right">
-                        <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true"
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             <img class="user-avatar rounded-circle" src="{{ asset('images') }}/admin.jpg"
                                 alt="User Avatar">
@@ -258,6 +262,10 @@
                 no_results_text: "Oops, nothing found!",
                 width: "100%"
             });
+        });
+        $(document).ready(function() {
+            console.log('{{ URL::current() }}');
+            $(".navbar-nav").find("[href='{{ URL::current() }}']").addClass('active')
         });
     </script>
 </body>

@@ -74,47 +74,59 @@
         #cellPaiChart {
             height: 160px;
         }
+
+        .navbar-nav li,
+        .navbar-nav ul li a {
+            color: #ffffff;
+        }
     </style>
 </head>
 
 <body>
     <!-- Left Panel -->
-    <aside id="left-panel" class="left-panel">
-        <nav class="navbar navbar-expand-sm navbar-default">
+    <aside id="left-panel" class="left-panel bg-success">
+        <nav class="navbar navbar-expand-sm navbar-default bg-success">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="">
-                        <a href="{{ route('dashboard') }}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
+                        <a class="text-light" href="{{ route('dashboard') }}"><i
+                                class="menu-icon text-light fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <li class="menu-title">Toko</li><!-- /.menu-title -->
+                    <li class="menu-title text-light">Toko</li><!-- /.menu-title -->
                     <li>
-                        <a href="{{ route('produk.index') }}"> <i class="menu-icon ti-bag"></i>Produk </a>
+                        <a class="text-light" href="{{ route('produk.index') }}"> <i
+                                class="menu-icon text-light ti-bag"></i>Produk </a>
                     </li>
-                    <li class="menu-title">Order</li><!-- /.menu-title -->
+                    <li class="menu-title text-light">Order</li><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"> <i class="menu-icon ti-shopping-cart"></i>Order</a>
+                        <a class="text-light" href="#" class="dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false"> <i
+                                class="menu-icon text-light ti-shopping-cart"></i>Order</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li>
-                                <a href="{{ route(Session::get('type') . '.order') }}"> Semua </a>
+                                <a class="text-light" href="{{ route(Session::get('type') . '.order') }}"> Semua </a>
                             </li>
                             <li>
-                                <a href="{{ route(Session::get('type') . '.order.masuk') }}"> Orderan Masuk
+                                <a class="text-light" href="{{ route(Session::get('type') . '.order.masuk') }}"> Orderan
+                                    Masuk
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route(Session::get('type') . '.order.diproses') }}"> Orderan Diproses
+                                <a class="text-light" href="{{ route(Session::get('type') . '.order.diproses') }}">
+                                    Orderan Diproses
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route(Session::get('type') . '.order.selesai') }}"> Orderan Selesai
+                                <a class="text-light" href="{{ route(Session::get('type') . '.order.selesai') }}">
+                                    Orderan Selesai
                                 </a>
                             </li>
 
                         </ul>
                     </li>
                     <li>
-                        <a href="{{ route(Session::get('type').'.laporan') }}"> <i class="menu-icon ti-clipboard"></i>Laporan </a>
+                        <a class="text-light" href="{{ route(Session::get('type') . '.laporan') }}"> <i
+                                class="menu-icon text-light ti-clipboard"></i>Laporan </a>
                     </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
@@ -124,21 +136,26 @@
     <!-- Right Panel -->
     @php
         $user = App\Models\User::find(Session::get('user_id'));
-         $notif = App\Models\Pembelian::join('detailpembelian', 'detailpembelian.pembelian_id', '=', 'pembelian.pembelian_id')
-                ->join('produk', 'detailpembelian.produk_id', '=', 'produk.produk_id')
-                ->where('status_pembelian', '=', 'diproses')
-                ->where('produk.petani_id', '=', $user->petani->petani_id)
-                ->groupBy('pembelian.pembelian_id')
-                ->count();
+        $notif = App\Models\Pembelian::join(
+            'detailpembelian',
+            'detailpembelian.pembelian_id',
+            '=',
+            'pembelian.pembelian_id',
+        )
+            ->join('produk', 'detailpembelian.produk_id', '=', 'produk.produk_id')
+            ->where('status_pembelian', '=', 'diproses')
+            ->where('produk.petani_id', '=', $user->petani->petani_id)
+            ->groupBy('pembelian.pembelian_id')
+            ->count();
     @endphp
     <div id="right-panel" class="right-panel">
         <!-- Header-->
-        <header id="header" class="header">
+        <header id="header" class="header bg-success">
             <div class="top-left">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="./"><b class="text-success">TokoTani</b></a>
+                <div class="navbar-header bg-success">
+                    <a class="navbar-brand" href="./"><b class="text-light">TokoTani</b></a>
                     {{-- <a class="navbar-brand" href="./"><img src="{{ asset('images') }}/logo.png" --}}
-                            {{-- alt="Logo"></a> --}}
+                    {{-- alt="Logo"></a> --}}
                     {{-- <a class="navbar-brand hidden" href="./"><img src="{{ asset('images') }}/logo2.png"
                             alt="Logo"></a> --}}
                     <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
@@ -151,13 +168,13 @@
                         <div class="dropdown for-notification">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="notification"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-bell"></i>
-                                <span class="count bg-danger">{{$notif}}</span>
+                                <i class="fa fa-bell text-light"></i>
+                                <span class="count bg-danger">{{ $notif }}</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="notification">
                                 <a class="dropdown-item media" href="#">
-                                    <i class="fa fa-cart"></i>
-                                    <p>Anda punya {{$notif}} pesanan masuk!</p>
+                                    <i class="fa fa-cart text-light"></i>
+                                    <p>Anda punya {{ $notif }} pesanan masuk!</p>
                                 </a>
                             </div>
                         </div>
@@ -173,7 +190,8 @@
                         <div class="user-menu dropdown-menu">
 
 
-                            <a class="nav-link" href="{{ route('logout') }}"><i class="fa fa-power-off"></i>Logout</a>
+                            <a class="nav-link" href="{{ route('logout') }}"><i
+                                    class="fa fa-power-off"></i>Logout</a>
                         </div>
                     </div>
 

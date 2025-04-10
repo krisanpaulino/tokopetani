@@ -83,7 +83,59 @@
                     </div>
                 </div>
 
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="chart-container-1 mt-3">
+                                <canvas id="chart4" width="345" height="325"
+                                    style="display: block; box-sizing: border-box; height: 260px; width: 276px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div><!-- .animated -->
     </div><!-- .content -->
+@endsection
+@section('scripts')
+    <script>
+        var ctx = document.getElementById('chart4').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [
+                    @foreach ($pembelian as $row)
+                        <?= "'" . $row->tanggal . "', " ?>
+                    @endforeach
+                ],
+                datasets: [{
+                    data: [
+                        @foreach ($pembelian as $row)
+                            {{ $row->jumlah . ', ' }}
+                        @endforeach
+                    ],
+                    label: 'Penjualan 7 Hari Terakhir',
+                    // backgroundColor: [
+                    //     '#0d6efd',
+                    //     '#6f42c1',
+                    //     '#d63384',
+                    //     '#fd7e14',
+                    //     '#15ca20',
+                    // ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        display: true,
+                    }
+                },
+
+            }
+        });
+    </script>
 @endsection

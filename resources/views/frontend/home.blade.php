@@ -8,12 +8,12 @@
                     <h4 class="mb-3 text-secondary">Langsung dari perkebunan</h4>
                     <h1 class="mb-5 display-3 text-primary">Hasil Kebun Organik</h1>
                     <div class="position-relative mx-auto">
-                        <form action="{{route('front.search')}}" method="get">
+                        <form action="{{ route('front.search') }}" method="get">
                             <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="text"
-                            placeholder="Search" name="keyword">
-                        <button type="submit"
-                            class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100"
-                            style="top: 0; right: 25%;">Submit Now</button>
+                                placeholder="Search" name="keyword">
+                            <button type="submit"
+                                class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100"
+                                style="top: 0; right: 25%;">Submit Now</button>
                         </form>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
     <div class="container-fluid fruite py-5">
         <div class="container py-5">
             @isset($keyword)
-                <h5>Search : "{{$keyword}}"</h5>
+                <h5>Search : "{{ $keyword }}"</h5>
             @endisset
             <h1 class="mb-4">Petani shop</h1>
             <div class="row g-4">
@@ -92,7 +92,7 @@
                                                     class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                style="top: 10px; left: 10px;">{{$r->petani->petani_nama}}</div>
+                                                style="top: 10px; left: 10px;">{{ $r->petani->petani_nama }}</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                 <h4>{{ $r->nama_produk }}</h4>
                                                 <p>{{ $r->deskripsi }}</p>
@@ -135,38 +135,41 @@
                 <div class="modal-body d-flex align-items-center">
                     <form action="{{ route('order') }}" method="post">
                         @csrf
-                      @if (Session::get('type')=='pembeli')
-                      <input type="hidden" name="produk_id" id="kode" value>
-                      <div class="mb-2" id="deskripsi">
+                        @if (Session::get('type') == 'pembeli')
+                            <input type="hidden" name="produk_id" id="kode" value>
+                            <div class="mb-2" id="deskripsi">
 
-                      </div>
-                      <div class="input-group w-100 mx-auto d-flex">
-                          <div class="input-group quantity mt-4" style="width: 100px;">
-                              <div class="input-group-btn">
-                                  <button onclick="$('#qty').val($('#qty').val()--)" type="button"
-                                      class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                      <i class="fa fa-minus"></i>
-                                  </button>
-                              </div>
-                              <input type="text" name="jumlah_beli" id="qty"
-                                  class="form-control text-center border-0" value="1">
-                              <div class="input-group-btn">
-                                  <button type="button" onclick="$('#qty').val($('#qty').val()++)"
-                                      class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                      <i class="fa fa-plus"></i>
-                                  </button>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="text-end">
-                        <button type="submit" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                class="fa fa-shopping-bag me-2 text-primary"></i> Pesan</button>
-                    </div>
-                      @else
-                        <div class="text-center">
-                            <a href="{{route('login')}}" class="btn border border-secondary rounded-pill px-3 text-primary"> Login Untuk Memesan</a>
-                        </div>
-                      @endif
+                            </div>
+                            <div class="input-group w-100 mx-auto d-flex">
+                                <div class="input-group quantity mt-4" style="width: 100px;">
+                                    <div class="input-group-btn">
+                                        <button onclick="$('#qty').val($('#qty').val()--)" type="button"
+                                            class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" name="jumlah_beli" id="qty"
+                                        class="form-control text-center border-0" value="1">
+                                    <div class="input-group-btn">
+                                        <button type="button" onclick="$('#qty').val($('#qty').val()++)"
+                                            class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <button type="submit"
+                                    class="btn border border-secondary rounded-pill px-3 text-primary"><i
+                                        class="fa fa-shopping-bag me-2 text-primary"></i> Pesan</button>
+                            </div>
+                        @else
+                            <div class="text-center">
+                                <a href="{{ route('login') }}"
+                                    class="btn border border-secondary rounded-pill px-3 text-primary"> Login Untuk
+                                    Memesan</a>
+                            </div>
+                        @endif
 
                     </form>
                 </div>

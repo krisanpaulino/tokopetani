@@ -246,6 +246,7 @@
     <script src="{{ asset('/') }}assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="{{ asset('/') }}assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="{{ asset('/') }}assets/js/init/datatables-init.js"></script>
+    <script src="{{ asset('/') }}assets/js/lib/chartjs/js/chart.min.js"></script>
 
     <script src="{{ asset('/') }}assets/js/lib/chosen/chosen.jquery.min.js"></script>
 

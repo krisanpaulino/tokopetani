@@ -102,7 +102,7 @@
                         <a class="text-light" href="#" class="dropdown-toggle" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false"> <i
                                 class="menu-icon text-light ti-shopping-cart"></i>Order</a>
-                        <ul class="sub-menu children dropdown-menu">
+                        <ul class="sub-menu children dropdown-menu bg-success">
                             <li class="menu-item">
                                 <a class="text-light" href="{{ route(Session::get('type') . '.order') }}"> Semua </a>
                             </li>
@@ -256,6 +256,7 @@
     <script src="{{ asset('/') }}assets/js/lib/data-table/buttons.print.min.js"></script>
     <script src="{{ asset('/') }}assets/js/lib/data-table/buttons.colVis.min.js"></script>
     <script src="{{ asset('/') }}assets/js/init/datatables-init.js"></script>
+    <script src="{{ asset('/') }}assets/js/lib/chartjs/js/chart.min.js"></script>
 
     <script src="{{ asset('/') }}assets/js/lib/chosen/chosen.jquery.min.js"></script>
     @yield('scripts')

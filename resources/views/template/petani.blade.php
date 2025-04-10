@@ -88,12 +88,12 @@
         <nav class="navbar navbar-expand-sm navbar-default bg-success">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="">
+                    <li class="menu-item">
                         <a class="text-light" href="{{ route('dashboard') }}"><i
                                 class="menu-icon text-light fa fa-laptop"></i>Dashboard </a>
                     </li>
                     <li class="menu-title text-light">Toko</li><!-- /.menu-title -->
-                    <li>
+                    <li class="menu-item">
                         <a class="text-light" href="{{ route('produk.index') }}"> <i
                                 class="menu-icon text-light ti-bag"></i>Produk </a>
                     </li>
@@ -103,20 +103,20 @@
                             aria-haspopup="true" aria-expanded="false"> <i
                                 class="menu-icon text-light ti-shopping-cart"></i>Order</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li>
+                            <li class="menu-item">
                                 <a class="text-light" href="{{ route(Session::get('type') . '.order') }}"> Semua </a>
                             </li>
-                            <li>
+                            <li class="menu-item">
                                 <a class="text-light" href="{{ route(Session::get('type') . '.order.masuk') }}"> Orderan
                                     Masuk
                                 </a>
                             </li>
-                            <li>
+                            <li class="menu-item">
                                 <a class="text-light" href="{{ route(Session::get('type') . '.order.diproses') }}">
                                     Orderan Diproses
                                 </a>
                             </li>
-                            <li>
+                            <li class="menu-item">
                                 <a class="text-light" href="{{ route(Session::get('type') . '.order.selesai') }}">
                                     Orderan Selesai
                                 </a>
@@ -124,7 +124,7 @@
 
                         </ul>
                     </li>
-                    <li>
+                    <li class="menu-item">
                         <a class="text-light" href="{{ route(Session::get('type') . '.laporan') }}"> <i
                                 class="menu-icon text-light ti-clipboard"></i>Laporan </a>
                     </li>
@@ -268,6 +268,13 @@
                 no_results_text: "Oops, nothing found!",
                 width: "100%"
             });
+        });
+        $(document).ready(function() {
+            console.log('{{ URL::current() }}');
+            $(".menu-item").find("a[href='{{ URL::current() }}']").parent().addClass('active')
+            var a = $(".menu-item").find("a[href='{{ URL::current() }}']")
+            console.log(a);
+
         });
     </script>
 </body>

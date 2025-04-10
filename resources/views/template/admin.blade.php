@@ -83,20 +83,20 @@
         <nav class="navbar navbar-expand-sm navbar-default bg-success">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="">
+                    <li class="menu-item">
                         <a style="color: #ffffff" href="{{ route('dashboard') }}"><i style="color: #ffffff"
                                 class="menu-icon fa fa-laptop" style="color: #ffffff"></i>Dashboard </a>
                     </li>
-                    <li>
+                    <li class="menu-item">
                         <a style="color: #ffffff" href="{{ route('admin.produk') }}"> <i style="color: #ffffff"
                                 class="menu-icon ti-bag"></i>Produk Tersedia </a>
                     </li>
                     <li style="color: #ffffff" class="menu-title">User</li><!-- /.menu-title -->
-                    <li>
+                    <li class="menu-item">
                         <a style="color: #ffffff" href="{{ route('petani.index') }}"> <i style="color: #ffffff"
                                 class="menu-icon ti-user"></i>Petani </a>
                     </li>
-                    <li>
+                    <li class="menu-item">
                         <a style="color: #ffffff" href="{{ route('pembeli.index') }}"> <i style="color: #ffffff"
                                 class="menu-icon ti-user"></i>Pembeli </a>
                     </li>
@@ -106,21 +106,21 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i style="color: #ffffff"
                                 class="menu-icon ti-shopping-cart"></i>Order</a>
                         <ul class="sub-menu children dropdown-menu bg-success">
-                            <li>
+                            <li class="menu-item">
                                 <a style="color: #ffffff" href="{{ route(Session::get('type') . '.order') }}"> Semua
                                 </a>
                             </li>
-                            <li>
+                            <li class="menu-item">
                                 <a style="color: #ffffff" href="{{ route(Session::get('type') . '.order.masuk') }}">
                                     Orderan Masuk
                                 </a>
                             </li>
-                            <li>
+                            <li class="menu-item">
                                 <a style="color: #ffffff" href="{{ route(Session::get('type') . '.order.diproses') }}">
                                     Orderan Diproses
                                 </a>
                             </li>
-                            <li>
+                            <li class="menu-item">
                                 <a style="color: #ffffff" href="{{ route(Session::get('type') . '.order.selesai') }}">
                                     Orderan Selesai
                                 </a>
@@ -128,7 +128,7 @@
 
                         </ul>
                     </li>
-                    <li>
+                    <li class="menu-item">
                         <a style="color: #ffffff" href="{{ route(Session::get('type') . '.laporan') }}"> <i
                                 style="color: #ffffff" class="menu-icon ti-clipboard"></i>Laporan </a>
                     </li>
@@ -261,7 +261,10 @@
         });
         $(document).ready(function() {
             console.log('{{ URL::current() }}');
-            $(".navbar-nav").find("[href='{{ URL::current() }}']").addClass('active')
+            $(".menu-item").find("a[href='{{ URL::current() }}']").parent().addClass('active')
+            var a = $(".menu-item").find("a[href='{{ URL::current() }}']")
+            console.log(a);
+
         });
     </script>
 </body>

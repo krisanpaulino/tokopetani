@@ -124,7 +124,7 @@ class TransaksiController extends Controller
         $pengiriman =  Pengiriman::where('petani_id', '=', $user->petani->petani_id)
             ->where('pembelian_id', '=', $pembelian_id)
             ->first();
-        dd($pengiriman);
+        // dd($pengiriman);
         $pengiriman->status_pengiriman = 'dikirim';
         $pengiriman->resi = $request->resi;
         $pengiriman->estimasi = $request->estimasi;

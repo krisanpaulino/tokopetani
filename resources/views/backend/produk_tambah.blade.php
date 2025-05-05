@@ -6,7 +6,9 @@
                 <div class="col-sm-4">
                     <div class="page-header float-left">
                         <div class="page-title">
-                            <h1>Dashboard</h1>
+                            <h1><a href="{{ route('produk.index') }}" class="text-primary">
+                                    << Produk</a>
+                            </h1>
                         </div>
                     </div>
                 </div>

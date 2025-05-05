@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Pembeli extends Model
 {
@@ -30,5 +31,9 @@ class Pembeli extends Model
         return $this->belongsTo(Province::class, 'alamat_provinsi', 'province_id')->withDefault([
             'province' => 'no data'
         ]);
+    }
+    function pembelian(): HasMany
+    {
+        return $this->hasMany(Pembelian::class, 'pembeli_id', 'pembeli_id');
     }
 }

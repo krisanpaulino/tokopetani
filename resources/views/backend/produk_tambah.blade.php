@@ -1,4 +1,4 @@
-@extends('template.'.Session::get('type'))
+@extends('template.' . Session::get('type'))
 @section('content')
     <div class="breadcrumbs">
         <div class="breadcrumbs-inner">
@@ -55,8 +55,10 @@
                                 </div>
                                 <div class="form-group mb-4">
                                     <label for="">Harga</label>
-                                    <input value="{{ old('harga') }}" type="number" name="harga"
-                                        class="form-control @error('harga') is-invalid @enderror">
+                                    <input type="hidden" name="harga" value="{{ old('harga') }}">
+                                    <input value="{{ old('harga') }}" type="text" pattern="\d+((\.|,)\d+)?"
+                                        name="harga"
+                                        class="form-control just-number price-format-input @error('harga') is-invalid @enderror">
                                     @error('harga')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -105,4 +107,30 @@
             </div>
         </div><!-- .animated -->
     </div><!-- .content -->
+@endsection
+@section('scripts')
+    <script>
+        $(document).on("keypress", ".just-number", function(e) {
+            let charCode = (e.which) ? e.which : e.keyCode;
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                return false;
+            }
+        });
+        $(document).on('keyup', '.price-format-input', function(e) {
+            let val = this.value;
+            val = val.replace(/,/g, "");
+            if (val.length > 3) {
+                let noCommas = Math.ceil(val.length / 3) - 1;
+                let remain = val.length - (noCommas * 3);
+                let newVal = [];
+                for (let i = 0; i < noCommas; i++) {
+                    newVal.unshift(val.substr(val.length - (i * 3) - 3, 3));
+                }
+                newVal.unshift(val.substr(0, remain));
+                this.value = newVal;
+            } else {
+                this.value = val;
+            }
+        });
+    </script>
 @endsection

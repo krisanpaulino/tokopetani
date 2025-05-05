@@ -9,15 +9,12 @@ use App\Models\Produk;
 use App\Models\Pembeli;
 use App\Models\Pembelian;
 use App\Models\Pengiriman;
-use App\Models\Petani;
 use App\Models\Province;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Validation\Rule;
 
 class HomeController extends Controller
 {

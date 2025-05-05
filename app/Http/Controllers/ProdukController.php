@@ -43,6 +43,7 @@ class ProdukController extends Controller
             'satuan' => 'required',
             'deskripsi' => 'required',
         ]);
+        $validated['harga'] = str_replace(',', '', $validated['harga']);
         $path = $request->file('gambar')->storePublicly('produk', 'public');
         $validated['gambar'] = $path;
         $validated['petani_id'] = $user->petani->petani_id;
@@ -64,6 +65,7 @@ class ProdukController extends Controller
             'satuan' => 'required',
             'deskripsi' => 'required',
         ]);
+        $validated['harga'] = str_replace(',', '', $validated['harga']);
         if ($request->file('gambar') != null) {
             $path = $request->file('gambar')->storePublicly('produk', 'public');
             $validated['gambar'] = $path;
@@ -106,7 +108,8 @@ class ProdukController extends Controller
         $petani = Petani::find($petani_id);
         $produk = Produk::where('petani_id', '=', $petani_id)->get();
         $title = 'Produk Petani';
+        $back = 'petani.index';
 
-        return view('backend.produk_tersedia', compact('title', 'produk', 'petani'));
+        return view('backend.produk_tersedia', compact('title', 'produk', 'petani', 'back'));
     }
 }

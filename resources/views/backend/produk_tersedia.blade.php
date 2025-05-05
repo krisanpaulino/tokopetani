@@ -1,13 +1,17 @@
-@extends('template.'.Session::get('type'))
+@extends('template.' . Session::get('type'))
 @section('content')
     <div class="breadcrumbs">
         <div class="breadcrumbs-inner">
             <div class="row m-0">
                 <div class="col-sm-4">
                     <div class="page-header float-left">
-                        <div class="page-title">
-                            <h1>{{ $title }}</h1>
-                        </div>
+                        @if (isset($back))
+                            <div class="page-title">
+                                <h1><a href="{{ route('petani.index') }}" class="text-primary">
+                                        << Petani</a>
+                                </h1>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="col-sm-8">
@@ -32,10 +36,10 @@
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="box-title">{{$title}}</h4>
-                             @isset($petani)
-                                <span>Nama Petani : {{$petani->petani_nama}}</span>
-                             @endisset
+                                <h4 class="box-title">{{ $title }}</h4>
+                                @isset($petani)
+                                    <span>Nama Petani : {{ $petani->petani_nama }}</span>
+                                @endisset
                             </div>
                             <div class="card-body">
                                 <br>

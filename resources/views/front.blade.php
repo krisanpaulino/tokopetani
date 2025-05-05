@@ -16,7 +16,9 @@
         rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
@@ -67,24 +69,35 @@
                     data-bs-target="#navbarCollapse">
                     <span class="fa fa-bars text-primary"></span>
                 </button>
+
                 <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                     <div class="navbar-nav mx-auto">
-                        <a href="{{route('front.index')}}" class="nav-item nav-link active">Shop</a>
-                        <a href="{{route('front.order')}}" class="nav-item nav-link">My Order</a>
-                        <a href="{{route('front.profil')}}" class="nav-item nav-link">Profil</a>
+                        <a href="{{ route('front.index') }}" class="nav-item nav-link active">Shop</a>
+                        @if (Session::has('login_pembeli'))
+                            @php
+                                $pembeli = \App\Models\Pembeli::where('user_id', '=', Session::get('user_id'))->first();
+
+                            @endphp
+                            <a href="{{ route('front.order') }}" class="nav-item nav-link">My Order
+                            </a>
+                            <a href="{{ route('front.profil') }}" class="nav-item nav-link">Profil</a>
+                        @endif
                     </div>
                     <div class="d-flex m-3 me-0">
                         <button
                             class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
                             data-bs-toggle="modal" data-bs-target="#searchModal"><i
                                 class="fas fa-search text-primary"></i></button>
-                        <a href="{{ route('cart') }}" class="position-relative me-4 my-auto">
-                            <i class="fa fa-shopping-bag fa-2x"></i>
-                            {{-- <span
+                        @if (Session::has('login_pembeli'))
+                            <a href="{{ route('cart') }}" class="position-relative me-4 my-auto">
+                                <i class="fa fa-shopping-bag fa-2x"></i><span
+                                    class="badge bg-danger">{{ \App\Models\Detailpembelian::cartCount($pembeli->pembeli_id) }}</span>
+                                {{-- <span
                                 class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                                 style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span> --}}
-                        </a>
-                        <a href="{{route('front.profil')}}" class="my-auto">
+                            </a>
+                        @endif
+                        <a href="{{ route('front.profil') }}" class="my-auto">
                             <i class="fas fa-user fa-2x"></i>
                         </a>
                     </div>
@@ -96,19 +109,20 @@
 
 
     <!-- Modal Search Start -->
-    <form action="{{route('front.search')}}" method="get">
-    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex align-items-center">
+    <form action="{{ route('front.search') }}" method="get">
+        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content rounded-0">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex align-items-center">
                         <div class="input-group w-75 mx-auto d-flex">
                             <input type="search" name="keyword" class="form-control p-3" placeholder="keywords"
                                 aria-describedby="search-icon-1">
-                            <button type="submit" id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></button>
+                            <button type="submit" id="search-icon-1" class="input-group-text p-3"><i
+                                    class="fa fa-search"></i></button>
                         </div>
                     </div>
                 </div>

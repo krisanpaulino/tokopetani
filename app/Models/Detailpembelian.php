@@ -29,6 +29,19 @@ class Detailpembelian extends Model
         return $this->belongsTo(Pembelian::class, 'pembelian_id', 'pembelian_id');
     }
 
+    static function cartCount($pembeli_id)
+    {
+        return self::join('pembelian', 'pembelian.pembelian_id', '=', 'detailpembelian.pembelian_id')
+            ->where('status_pembelian', '=', 'in cart')
+            ->where('pembelian.pembeli_id', '=', $pembeli_id)
+            ->count();
+    }
+    static function detailProduk($pembelian_id)
+    {
+        return self::join('pembelian', 'pembelian.pembelian_id', '=', 'detailpembelian.pembelian_id')
+            ->where('detailpembelian.pembelian_id', '=', $pembelian_id)
+            ->get();
+    }
     // function pengiriman() : BelongsTo {
     //     return $this->pembelian->;
     // }

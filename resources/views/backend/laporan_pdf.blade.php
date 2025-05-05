@@ -138,17 +138,18 @@
         <section class="report-table">
             <h2>Data Transaksi</h2>
             @if ($dari != null)
-                Dari Tanggal : {{$dari}}
+                Dari Tanggal : {{ $dari }}
             @endif
             @if ($sampai != null)
-                Sampai Tanggal : {{$sampai}}
+                Sampai Tanggal : {{ $sampai }}
             @endif
             <table>
                 <thead>
                     <tr>
                         <td width="5%">No</td>
                         <th width="20%">Tanggal Pesan</th>
-                        <th width="20%">Status</th>
+                        <th width="10%">Status</th>
+                        <th width="10%">Produk</th>
                         <th width="25%">Total Produk</th>
                         <th width="15%">Total Ongkir</th>
                         <th width="15%">Total Bayar</th>
@@ -158,15 +159,20 @@
                     <?php $i = 1;
                     $total = 0; ?>
                     <?php foreach ($laporan as $row) : ?>
-                        <tr>
-                            <td><?= $i++ ?></td>
-                            <td><?= $row->tanggal_pesan ?></td>
-                            <td><?= $row->status_pembelian ?></td>
-                            <td>Rp <?= number_format($row->total_bayar) ?></td>
-                            <td>Rp <?= number_format($row->ongkir) ?></td>
-                            <td>Rp <?= number_format($row->total_bayar + $row->ongkir) ?></td>
-                        </tr>
-                        <?php $total += $row->total_bayar + $row->ongkir ?>
+                    <tr>
+                        <td><?= $i++ ?></td>
+                        <td><?= $row->tanggal_pesan ?></td>
+                        <td><?= $row->status_pembelian ?></td>
+                        <td>
+                            @foreach ($r->detailpembelian as $item)
+                                {{ $item->produk->nama_produk }}; <br>
+                            @endforeach
+                        </td>
+                        <td>Rp <?= number_format($row->total_bayar) ?></td>
+                        <td>Rp <?= number_format($row->ongkir) ?></td>
+                        <td>Rp <?= number_format($row->total_bayar + $row->ongkir) ?></td>
+                    </tr>
+                    <?php $total += $row->total_bayar + $row->ongkir; ?>
                     <?php endforeach ?>
                     <tr>
                         <td colspan="5"><b>TOTAL PEMASUKAN</b></td>

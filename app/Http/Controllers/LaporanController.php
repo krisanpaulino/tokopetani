@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pembelian;
 use App\Models\Petani;
+use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -11,6 +12,12 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class LaporanController extends Controller
 {
+    function tes()
+    {
+        $title = 'Home Page';
+        $produk = Produk::join('petani', 'petani.petani_id', '=', 'produk.petani_id')->orderBy('produk_id', 'desc')->paginate(12);
+        return view('frontend.home', compact('title', 'produk'));
+    }
     function pembelian(Request $request)
     {
         $dari = $request->dari;
@@ -45,7 +52,14 @@ class LaporanController extends Controller
 
         return view('backend.laporan_pembelian', compact('laporan', 'dari', 'sampai', 'title'));
     }
+    function riwayat($pembeli_id)
+    {
+        $title = 'Riwayat Pembelian';
+        $model = Pembelian::select('*');
+        $laporan = $model->where('pembeli_id', $pembeli_id)->get();
 
+        return view('backend.riwayat-transaksi', compact('laporan', 'title'));
+    }
     function cetak(Request $request)
     {
         $dari = $request->dari;

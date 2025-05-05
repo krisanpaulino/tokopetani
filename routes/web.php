@@ -11,10 +11,9 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Middleware\AdminLogin;
 use App\Http\Middleware\PembeliLogin;
 use App\Http\Middleware\PetaniLogin;
-use App\Models\Pembeli;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index'])->name('front.index');
+Route::get('/', [LaporanController::class, 'tes'])->name('front.index');
 Route::get('/search', [HomeController::class, 'search'])->name('front.search'); //ini belum bikin
 
 Route::get('/login', [AuthController::class, 'loginPage'])->name('login');
@@ -51,6 +50,8 @@ Route::prefix('admin')->middleware(AdminLogin::class)->group(function () {
 
     Route::get('/pembeli', [PembeliController::class, 'index'])->name('pembeli.index');
     Route::get('/pembeli/edit/{pembeli_id}', [PembeliController::class, 'edit'])->name('pembeli.edit');
+    Route::get('/riwayat/{pembeli_id}', [LaporanController::class, 'riwayat'])->name('admin.riwayat-pembeli');
+
     Route::post('/pembeli/update', [PembeliController::class, 'update'])->name('pembeli.update');
     Route::get('/produk', [ProdukController::class, 'tersedia'])->name('admin.produk');
     Route::get('/produk-petani/{id}', [ProdukController::class, 'byPetani'])->name('admin.produk-petani');

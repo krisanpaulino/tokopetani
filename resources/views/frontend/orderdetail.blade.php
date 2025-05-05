@@ -18,7 +18,8 @@
                             @foreach ($petani as $p)
                                 <h5>{{ $p->petani_nama }}</h5>
                                 @if ($pembelian->status_pembelian != 'menunggu pembayaran')
-                                    <span>Status Pengiriman : {{$p->pembelian->pengiriman->where('petani_id', $p->petani_id)->first()->status_pengiriman}}</span>
+                                    <span>Status Pengiriman :
+                                        {{ $p->pembelian->pengiriman->where('petani_id', $p->petani_id)->first()->status_pengiriman }}</span>
                                 @endif
                                 <span></span>
                                 <table class="table">
@@ -130,6 +131,25 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @if ($pembelian->pengiriman->count() > 0)
+                                    <tr>
+                                        <th scope="row">
+                                        </th>
+                                        <td class="py-5">
+                                            <p class="mb-0 text-dark text-uppercase py-3">Estimasi Pengiriman</p>
+                                        </td>
+                                        <td class="py-5"></td>
+                                        <td class="py-5"></td>
+                                        <td class="py-5">
+                                            @foreach ($pembelian->pengiriman as $item)
+                                                <div class="py-3 border-bottom border-top">
+                                                    <p class="mb-0 text-dark" id="shipping">
+                                                        {{ $item->estimasi }}</p>
+                                                </div>
+                                            @endforeach
+                                        </td>
+                                    </tr>
+                                @endif
                                 <tr>
                                     <th scope="row">
                                     </th>

@@ -140,24 +140,29 @@
                             <div class="mb-2" id="deskripsi">
 
                             </div>
-                            <div class="input-group w-100 mx-auto d-flex">
-                                <div class="input-group quantity mt-4" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button onclick="$('#qty').val($('#qty').val()--)" type="button"
-                                            class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
+                            <div class="row">
+                                <div class="input-group w-100 mx-auto d-flex col">
+                                    <div class="input-group quantity mt-4" style="width: 100px;">
+                                        <div class="input-group-btn">
+                                            <button onclick="$('#qty').val($('#qty').val()--)" type="button"
+                                                class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <input type="text" name="jumlah_beli" id="qty"
+                                            class="form-control text-center border-0" value="1">
+                                        <div class="input-group-btn">
+                                            <button type="button" onclick="$('#qty').val($('#qty').val()++)"
+                                                class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                    <input type="text" name="jumlah_beli" id="qty"
-                                        class="form-control text-center border-0" value="1">
-                                    <div class="input-group-btn">
-                                        <button type="button" onclick="$('#qty').val($('#qty').val()++)"
-                                            class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
+
                                 </div>
+                                <div class="col d-flex justify-content-bottom"><span class="ml-2">Kg</span></div>
                             </div>
+
                             <div class="text-end">
                                 <button type="submit"
                                     class="btn border border-secondary rounded-pill px-3 text-primary"><i

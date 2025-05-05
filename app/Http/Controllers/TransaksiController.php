@@ -16,7 +16,7 @@ class TransaksiController extends Controller
     protected $user;
     function __construct()
     {
-        $this->user = User::where('username', Session::get('email'))->first();;
+        $this->user = User::where('username', Session::get('email'))->first();
     }
     function masuk()
     {
@@ -120,13 +120,15 @@ class TransaksiController extends Controller
     function kirimPost(Request $request): RedirectResponse
     {
         $pembelian_id = $request->pembelian_id;
-        $pengiriman =  Pengiriman::where('petani_id', '=', $this->user->petani->petani_id)
+        $user = User::where('username', Session::get('email'))->first();
+        $pengiriman =  Pengiriman::where('petani_id', '=', $user->petani->petani_id)
             ->where('pembelian_id', '=', $pembelian_id)
             ->first();
+        // dd($pengiriman);
         $pengiriman->status_pengiriman = 'dikirim';
         $pengiriman->resi = $request->resi;
         $pengiriman->estimasi = $request->estimasi;
-        $pengiriman->save();
+        $pengiriman->update();
         return back()->with('message', 'succesToast("Berhasil proses pengiriman")');
     }
     function prosesPost(Request $request)

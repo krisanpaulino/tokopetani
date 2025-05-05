@@ -160,7 +160,7 @@
                                     </div>
 
                                 </div>
-                                <div class="col d-flex justify-content-bottom"><span class="ml-2">Kg</span></div>
+                                <div class="col"><span class="ml-2 align-bottom">Kg</span></div>
                             </div>
 
                             <div class="text-end">

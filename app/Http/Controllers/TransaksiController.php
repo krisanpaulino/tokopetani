@@ -126,7 +126,7 @@ class TransaksiController extends Controller
         $pengiriman->status_pengiriman = 'dikirim';
         $pengiriman->resi = $request->resi;
         $pengiriman->estimasi = $request->estimasi;
-        $pengiriman->update();
+        $pengiriman->save();
         return back()->with('message', 'succesToast("Berhasil proses pengiriman")');
     }
     function prosesPost(Request $request)

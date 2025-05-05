@@ -149,8 +149,8 @@ class TransaksiController extends Controller
             ->first();
 
         $pengiriman->status_pengiriman = 'selesai';
-        $pengiriman->resi = $request->resi;
-        $pengiriman->estimasi = $request->estimasi;
+        // $pengiriman->resi = $request->resi;
+        // $pengiriman->estimasi = $request->estimasi;
         $pengiriman->update();
 
         if (!Pengiriman::where('pembelian_id', '=', $pembelian_id)->where('status_pengiriman', '=', 'dikirim')->exists()) {

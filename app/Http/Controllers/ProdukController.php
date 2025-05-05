@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Detailpembelian;
+use App\Models\Pembelian;
 use App\Models\Petani;
 use App\Models\Produk;
 use App\Models\User;
@@ -90,6 +92,16 @@ class ProdukController extends Controller
     function delete(Request $request)
     {
         $produk_id = $request->produk_id;
+        $detail = Detailpembelian::join('produk', 'produk.produk_id', '=', 'detailpembelian.produk_id')
+            ->join('pembelian', 'pembelian.pembelian_id', '=', 'detailpembelian.pembelian_id')
+            ->where('status_pembelian', '=', 'in cart')
+            ->get();
+        foreach ($detail as $key => $data) {
+            $data->pembelian->decrement('total_produk', $data->produk->harga_produk);
+            if ($data->pembelian->total_harga == 0)
+                Pembelian::find($data->pembelian_id)->destroy();
+        }
+
         Produk::destroy($produk_id);
         return back()->with('success', 'Data produk berhasil dihapus')->with('message', 'successToast("Data produk berhasil dihapus")');
     }

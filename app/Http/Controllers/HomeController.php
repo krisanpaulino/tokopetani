@@ -80,7 +80,9 @@ class HomeController extends Controller
         $pembeli = Pembeli::where('user_id', '=', Session::get('user_id'))->first();
         $pembelian = Pembelian::where('pembeli_id', '=', $pembeli->pembeli_id)->where('status_pembelian', '=', 'in cart')->first();
         if ($pembelian != null)
-            $detail = Detailpembelian::where('pembelian_id', '=', $pembelian->pembelian_id)->get();
+            $detail = Detailpembelian::join('produk', 'produk.produk_id', '=', 'detailpembelian.produk_id')->where('pembelian_id', '=', $pembelian->pembelian_id)->get();
+        if ($detail == null)
+            $pembelian->destroy();
         else
             $detail = null;
         // dd($pembeli);

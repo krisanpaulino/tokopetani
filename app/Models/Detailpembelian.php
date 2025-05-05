@@ -21,7 +21,10 @@ class Detailpembelian extends Model
 
     function produk(): BelongsTo
     {
-        return $this->belongsTo(Produk::class, 'produk_id', 'produk_id');
+        return $this->belongsTo(Produk::class, 'produk_id', 'produk_id')->withDefault([
+            'nama_produk' => 'deleted',
+            'gambar' => 'deleted',
+        ]);
     }
 
     function pembelian(): BelongsTo

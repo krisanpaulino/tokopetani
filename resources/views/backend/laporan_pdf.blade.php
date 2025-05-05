@@ -164,7 +164,7 @@
                         <td><?= $row->tanggal_pesan ?></td>
                         <td><?= $row->status_pembelian ?></td>
                         <td>
-                            @foreach ($r->detailpembelian as $item)
+                            @foreach ($row->detailpembelian as $item)
                                 {{ $item->produk->nama_produk }}; <br>
                             @endforeach
                         </td>

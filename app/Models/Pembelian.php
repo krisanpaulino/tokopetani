@@ -23,7 +23,9 @@ class Pembelian extends Model
 
     function pembeli(): BelongsTo
     {
-        return $this->belongsTo(Pembeli::class, 'pembeli_id', 'pembeli_id');
+        return $this->belongsTo(Pembeli::class, 'pembeli_id', 'pembeli_id')->withDefault([
+            'nama_pembeli' => 'user deleted'
+        ]);
     }
 
     function detailpembelian(): HasMany

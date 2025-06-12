@@ -50,10 +50,8 @@ class AuthController extends Controller
             'nama_pembeli' => 'required',
             'no_telp' => 'required',
             'alamat_jalan' => 'required',
-            'alamat_desa' => 'required',
-            'alamat_kota' => 'required',
-            'alamat_provinsi' => 'required',
-            'alamat_kodepos' => 'required',
+            'lokasi_id' => 'required',
+            'lokasi_string' => 'required',
 
         ]);
         $userdata = $request->validate([
@@ -75,7 +73,7 @@ class AuthController extends Controller
         $validated['user_id'] = $user->user_id;
         Pembeli::insert($validated);
 
-        return redirect(route('login'));
+        return redirect(route('login'))->with('success', 'Registrasi Berhasil, silahkan login menggunakan akun anda.');
     }
 
     function logout()

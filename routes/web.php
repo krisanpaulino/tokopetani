@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
@@ -13,7 +14,7 @@ use App\Http\Middleware\PembeliLogin;
 use App\Http\Middleware\PetaniLogin;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [LaporanController::class, 'tes'])->name('front.index');
+Route::get('/', [HomeController::class, 'index'])->name('front.index');
 Route::get('/search', [HomeController::class, 'search'])->name('front.search'); //ini belum bikin
 
 Route::get('/login', [AuthController::class, 'loginPage'])->name('login');
@@ -37,6 +38,8 @@ Route::get('/checkout/{id}', [HomeController::class, 'checkout'])->name('checkou
 Route::get('/order/{id}', [HomeController::class, 'detail'])->name('order.detail')->middleware(PembeliLogin::class);
 Route::post('/order/upload', [HomeController::class, 'uploadBukti'])->name('order.upload')->middleware(PembeliLogin::class);
 
+Route::get('/ajax-carilokasi', [AjaxController::class, 'lokasi'])->name('ajax.getLokasi');
+Route::get('/ajax-cost', [AjaxController::class, 'cost'])->name('ajax.getCost');
 
 Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::prefix('admin')->middleware(AdminLogin::class)->group(function () {

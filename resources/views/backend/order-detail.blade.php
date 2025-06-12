@@ -1,4 +1,4 @@
-@extends('template.'.Session::get('type'))
+@extends('template.' . Session::get('type'))
 @section('content')
     <div class="breadcrumbs">
         <div class="breadcrumbs-inner">
@@ -51,11 +51,14 @@
                             </div>
                             <div class="card-body">
                                 @if (Session::get('type') == 'petani')
-                                    <span><b>Status Pengiriman : </b>{{ $ongkir->status_pengiriman }}</span>
+                                    <p class="text-dark"><b>Status Pengiriman : </b>{{ $ongkir->status_pengiriman }}</p>
+                                    <p class="text-dark"><b>Perkiraan Sampai :
+                                        </b>{{ date('d-m-Y', strtotime($ongkir->estimasi)) }}</p>
                                 @endif
                                 @if (Session::get('type') == 'admin')
                                     <span><b>Status Pesanan : </b>{{ $pembelian->status_pembelian }}</span>
                                 @endif
+
                                 <div class="table-stats order-table ov-h">
                                     <table class="table ">
                                         <thead>
@@ -71,10 +74,11 @@
                                         <tbody>
                                             <?php $no = 1; ?>
                                             @foreach ($detail as $r)
-                                            @php
-                                                if($r->gambar == null)
-                                                $r->gambar='';
-                                            @endphp
+                                                @php
+                                                    if ($r->gambar == null) {
+                                                        $r->gambar = '';
+                                                    }
+                                                @endphp
                                                 <tr>
                                                     <td class="serial">{{ $no++ }}</td>
                                                     <td class="avatar">
@@ -156,11 +160,7 @@
                                 </div>
                                 <div class="form-group mb-4">
                                     <label for="">Estimasi</label>
-                                    <input value="{{ old('estimasi') }}" type="text" name="estimasi"
-                                        class="form-control @error('estimasi') is-invalid @enderror" required>
-                                    @error('estimasi')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    <span class="fs-4">{{ $pembelian->pengiriman->first()->estimasi }}</span>
                                 </div>
                             </div>
                             <div class="modal-footer">

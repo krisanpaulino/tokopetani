@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <!-- Template Stylesheet -->
     <link href="{{ asset('front') }}/css/style.css" rel="stylesheet">
+    @yield('cssplugins')
 </head>
 
 <body>
@@ -253,12 +254,38 @@
     <script src="{{ asset('front') }}/lib/lightbox/js/lightbox.min.js"></script>
     <script src="{{ asset('front') }}/lib/owlcarousel/owl.carousel.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
+    @yield('jsplugins')
     <!-- Template Javascript -->
     <script src="{{ asset('front') }}/js/main.js"></script>
     @yield('scripts')
 
     <script>
+        $(document).ready(function() {
+            $('#mySelect2').select2({
+                ajax: {
+                    url: "{{ route('ajax.getLokasi') }}",
+                    data: function(params) {
+                        var query = {
+                            search: params.term,
+                        }
+
+                        // Query parameters will be ?search=[term]&type=public
+                        return query;
+                    },
+                    processResults: function(data) {
+                        var res = jQuery.parseJSON(data)
+                        console.log(res.results);
+
+                        // Transforms the top-level key of the response object from 'items' to 'results'
+                        return {
+                            results: res.results
+                        };
+                    }
+
+                }
+            });
+            // $('.form-select').select2();
+        });
         //cek stok
         // $('body').on('click', '#add', function() {
         //     var kode = $(this).data('id');

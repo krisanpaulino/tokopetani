@@ -21,7 +21,8 @@ class HomeController extends Controller
     function index()
     {
         $title = 'Home Page';
-        $produk = Produk::join('petani', 'petani.petani_id', '=', 'produk.petani_id')->orderBy('produk_id', 'desc')->paginate(12);
+        $produk = Produk::join('petani', 'petani.petani_id', '=', 'produk.petani_id')
+            ->where('produk.stok', '>', '0')->paginate(12);
         return view('frontend.home', compact('title', 'produk'));
     }
 
@@ -113,22 +114,28 @@ class HomeController extends Controller
         // $petani = Petani::whereIn('')
         // $detail = Detailpembelian::where('pembelian_id', '=', $pembelian_id)->join('produk', 'detailpembelian.produk_id', '=', 'produk.produk_id')->groupBy('petani_id')->get();
         $sumBerat = Detailpembelian::sum('jumlah_beli');
-        $curl = curl_init();
-        // dd($petani);
 
+        $destination = $pembeli->lokasi_id;
+        $curl = curl_init();
+        //         curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, 0);
+        // curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt_array($curl, array(
-            CURLOPT_URL => "https://api.rajaongkir.com/starter/cost",
+            CURLOPT_URL => "https://rajaongkir.komerce.id/api/v1/calculate/domestic-cost",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
+            CURLOPT_POSTFIELDS => array(
+                'origin' => '34462',
+                'destination' => $destination,
+                'weight' => 1000,
+                'courier' => 'jne'
+            ),
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => "origin=213&destination=$pembeli->alamat_kota&weight=1&courier=jne",
             CURLOPT_HTTPHEADER => array(
-                "content-type: application/x-www-form-urlencoded",
-                "key: 78861dcc740d4ea5ba1c732fe9183da0"
-            ),
+                "key: 6f236992378c17b751f3b051fbe73779"
+            )
         ));
         $response = curl_exec($curl);
         $err = curl_error($curl);
@@ -137,8 +144,8 @@ class HomeController extends Controller
             echo "cURL Error #:" . $err;
         }
         $array_response = json_decode($response, TRUE);
-        $ongkir = $array_response["rajaongkir"]["results"][0];
-        // dd($ongkir['costs']);
+        $ongkir = $array_response["data"];
+        // dd($destination);
 
         // $detail = Detailpembelian::where('pembelian_id', '=', $pembelian->pembelian_id)->get();
         // $pembelian->status_pembelian = 'menunggu pembayaran';
@@ -154,16 +161,21 @@ class HomeController extends Controller
         $pembelian_id = $request->pembelian_id;
         $pembelian = Pembelian::find($pembelian_id);
         $pembelian->status_pembelian = 'menunggu pembayaran';
-
+        $now = date('Y-m-d H:i:s');
+        $batas = strtotime($now . ' +1 day');
+        $pembelian->batas_bayar = $batas;
         $ongkir = $request->ongkir;
         $totalongkir = 0;
         foreach ($ongkir as $key => $o) {
-            $totalongkir += $o;
+            $arr = explode('|', $o);
+            $totalongkir += $arr[0];
+            $estimasi = $arr[1];
             $data = [
                 'pembelian_id' => $pembelian_id,
                 'kurir' => 'JNE',
                 'petani_id' => $key,
-                'biaya' => $o
+                'biaya' => $arr[0],
+                'estimasi' => $estimasi
             ];
             Pengiriman::insert($data);
         }

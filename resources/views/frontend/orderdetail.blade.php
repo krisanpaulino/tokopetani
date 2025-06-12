@@ -196,6 +196,11 @@
                                             <br> A.n : <b>Jovi</b>
                                         </p>
                                     </div>
+
+                                    <div class="mb-4">
+                                        <span>Batas Bayar : {{ date('Y/m/d H:i:s', $pembelian->batas_bayar) }}</span>
+                                        <div id="countdown" class="text-danger fs-4"></div>
+                                    </div>
                                     <div class="form-check text-start my-3">
                                         <label for="">Upload Bukti Pembayaran</label>
                                         <input type="file" name="bukti" class="form-control" id="" required>
@@ -206,9 +211,7 @@
                                 <div class="form-check text-start my-3">
                                     <label class="form-check-label" for="Transfer-1">Pengiriman</label>
                                     <p class="text-start text-dark">Alamat Kirim : {{ $pembeli->alamat_jalan }},
-                                        {{ $pembeli->alamat_desa }}, {{ $pembeli->city->city }},
-                                        {{ $pembeli->alamat_provinsi }},
-                                        {{ $pembeli->alamat_kodepos }}</p>
+                                        {{ $pembeli->lokasi_string }}</p>
                                 </div>
 
                             </div>
@@ -227,6 +230,9 @@
     </div>
     <!-- Checkout Page End -->
 @endsection
+@section('jsplugins')
+    <script src="{{ asset('assets') }}/js/jquery.countdown.min.js"></script>
+@endsection
 @section('scripts')
     <script>
         $('#ongkir').on('change', function(e) {
@@ -238,5 +244,10 @@
 
             }
         })
+        $('#countdown').countdown("{{ date('Y/m/d H:i:s', $pembelian->batas_bayar) }}", function(event) {
+            console.log('here');
+
+            $(this).html(event.strftime('%H:%M:%S'));
+        });
     </script>
 @endsection

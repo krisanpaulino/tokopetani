@@ -127,7 +127,7 @@ class TransaksiController extends Controller
         // dd($pengiriman);
         $pengiriman->status_pengiriman = 'dikirim';
         $pengiriman->resi = $request->resi;
-        $pengiriman->estimasi = $request->estimasi;
+        $pengiriman->estimasi = date('Y-m-d', strtotime(date('Y-m-d') . ' +' . $pengiriman->estimasi));
         $pengiriman->update();
         return back()->with('message', 'succesToast("Berhasil proses pengiriman")');
     }
@@ -153,7 +153,7 @@ class TransaksiController extends Controller
         // $pengiriman->estimasi = $request->estimasi;
         $pengiriman->update();
 
-        if (!Pengiriman::where('pembelian_id', '=', $pembelian_id)->where('status_pengiriman', '=', 'dikirim')->exists()) {
+        if (!Pengiriman::where('pembelian_id', '=', $pembelian_id)->where('status_pengiriman', '<>', 'selesai')->exists()) {
             $pembelian = Pembelian::find($pembelian_id);
             $pembelian->status_pembelian = 'selesai';
             $pembelian->update();

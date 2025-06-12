@@ -55,13 +55,14 @@
                                             <td colspan="5">
                                                 <div class="form-item">
                                                     <label class="form-label my-3">Pilih Pengiriman <sup>*</sup></label>
+
                                                     <select name="ongkir[{{ $p->petani_id }}]" id="ongkir"
                                                         class="form-select">
                                                         <option value="">Pilih pengiriman</option>
-                                                        @foreach ($ongkir['costs'] as $cost)
-                                                            <option value="{{ $cost['cost'][0]['value'] }}">
-                                                                {{ $cost['description'] }} -
-                                                                Rp{{ number_format($cost['cost'][0]['value']) }}
+                                                        @foreach ($ongkir as $cost)
+                                                            <option value="{{ $cost['cost'] }}|{{ $cost['etd'] }}">
+                                                                {{ $cost['description'] }} | {{ $cost['etd'] }} -
+                                                                Rp{{ number_format($cost['cost']) }}
                                                             </option>
                                                         @endforeach
                                                     </select>
@@ -138,9 +139,7 @@
                                     <label class="form-check-label" for="Transfer-1">Pengiriman</label>
                                 </div>
                                 <p class="text-start text-dark">Alamat Kirim : {{ $pembeli->alamat_jalan }},
-                                    {{ $pembeli->alamat_desa }}, {{ $pembeli->city->city }},
-                                    {{ $pembeli->alamat_provinsi }},
-                                    {{ $pembeli->alamat_kodepos }}</p>
+                                    {{ $pembeli->lokasi_string }}</p>
                             </div>
                         </div>
                         <div class="row g-4 text-center align-items-center justify-content-center pt-4">
@@ -155,8 +154,46 @@
     </div>
     <!-- Checkout Page End -->
 @endsection
+@section('cssplugins')
+    <link href="{{ asset('front') }}/css/select2.min.css" rel="stylesheet" />
+@endsection
+@section('jsplugins')
+    <script src="{{ asset('front') }}/js/select2.min.js"></script>
+@endsection
 @section('scripts')
     <script>
+        $('#mySelect2').on('change', function(e) {
+            var lokasi = $('#mySelect2').val()
+            $('#stringLokasi').val($('#mySelect2 option:selected').text());
+            $('#ongkir').empty();
+
+            $.ajax({
+                url: "{{ route('ajax.getCost') }}",
+                type: 'GET',
+                data: {
+                    destination: lokasi
+                },
+                success: function(data) {
+                    console.log(data);
+
+                    $('#ongkir').append($('<option>', {
+                        text: 'Pilih Pengiriman'
+                    }));
+                    $.each(data, function(i, item) {
+                        $('#ongkir').append($('<option>', {
+                            value: item.cost,
+                            text: item.description + ' (' + item.etd + ') - Rp' +
+                                item.cost.toLocaleString('en-US')
+                        }));
+                    });
+                },
+                error: function(e) {
+                    console.log(e);
+
+                },
+                dataType: "json"
+            });
+        })
         $('body').on('change', '#ongkir', function(e) {
             var ongkir = $('body #ongkir').map(function() {
                 return $(this).val();

@@ -36,9 +36,8 @@ class PembeliController extends Controller
             'nama_pembeli' => 'required',
             'no_telp' => 'required',
             'alamat_jalan' => 'required',
-            'alamat_desa' => 'required',
-            'alamat_kota' => 'required',
-            'alamat_provinsi' => 'required',
+            'lokasi_id' => 'required',
+            'lokasi_string' => 'required',
             'alamat_kodepos' => 'required',
         ]);
         $pembeli_id = $request->pembeli_id;

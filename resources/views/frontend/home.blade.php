@@ -96,10 +96,12 @@
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                 <h4>{{ $r->nama_produk }}</h4>
                                                 <p>{{ $r->deskripsi }}</p>
+                                                <p><b>Stok : </b>{{ $r->stok }} {{ $r->satuan }}</p>
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
                                                     <p class="text-dark fs-5 fw-bold mb-0">Rp
                                                         {{ number_format($r->harga) }} /
                                                         {{ $r->satuan }}</p>
+
                                                     <a href="#" id="add" data-bs-toggle="modal"
                                                         data-bs-target="#order" data-id="{{ $r->produk_id }}"
                                                         data-nama="{{ $r->nama_produk }}"

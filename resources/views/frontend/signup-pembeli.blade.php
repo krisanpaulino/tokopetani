@@ -56,43 +56,13 @@
                             @error('alamat_jalan')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
-                            <input type="text"
-                                class="w-100 form-control border-0 py-3 mb-4 @error('alamat_desa') is-invalid @enderror"
-                                placeholder="Desa/Kelurahan" name="alamat_desa" value="{{ old('alamat_desa') }}">
-                            @error('alamat_desa')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-
-                            <select type="text"
-                                class="w-100 form-control border-0 py-3 mb-4 @error('alamat_provinsi') is-invalid @enderror"
-                                placeholder="Provinsi" name="alamat_provinsi" >
-                            <option value="">Provinsi</option>
-                            @foreach ($provinsi as $r)
-                                <option value="{{ $r->province_id }}" {{(old('alamat_provinsi') == $r->province_id) ? 'selected' : ''}}>{{ $r->province }}</option>
-                            @endforeach
+                            <select id="mySelect2" style="width: 100%" name="lokasi_id">
+                                <option value="">Cari Kota / Kecamatan</option>
                             </select>
-                            @error('alamat_provinsi')
+                            @error('lokasi_id')
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
-
-                            <select type="text"
-                            class="w-100 form-control border-0 py-3 mb-4 @error('alamat_kota') is-invalid @enderror"
-                            placeholder="Provinsi" name="alamat_kota" >
-                            <option value="">Kota</option>
-                            @foreach ($kota as $r)
-                                <option value="{{ $r->city_id }}" {{(old('alamat_kota') == $r->city_id) ? 'selected' : ''}}>{{ $r->city }}</option>
-                            @endforeach
-                            </select>
-                            @error('alamat_kota')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
-
-                            <input type="text"
-                                class="w-100 form-control border-0 py-3 mb-4 @error('alamat_kodepos') is-invalid @enderror"
-                                placeholder="Kode Pos" name="alamat_kodepos" value="{{ old('alamat_kodepos') }}">
-                            @error('alamat_kodepos')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                            <input type="hidden" name="lokasi_string" value id="stringLokasi">
 
                             <hr>
                             <input type="password"
@@ -117,4 +87,19 @@
         </div>
     </div>
     <!-- Contact End -->
+@endsection
+@section('cssplugins')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endsection
+@section('jsplugins')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+@endsection
+@section('scripts')
+    <script>
+        $('#mySelect2').on('change', function(e) {
+            var lokasi = $('#mySelect2').val()
+            $('#stringLokasi').val($('#mySelect2 option:selected').text());
+            // $('#ongkir').empty();
+        })
+    </script>
 @endsection

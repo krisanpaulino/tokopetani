@@ -54,7 +54,7 @@ class AjaxController extends Controller
     }
     function cost(Request $request)
     {
-        $destination = $request->destination;
+        $destination = urlencode($request->destination);
         $curl = curl_init();
         //         curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, 0);
         // curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, 0);

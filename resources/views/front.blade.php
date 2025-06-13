@@ -77,6 +77,9 @@
                         @if (Session::has('login_pembeli'))
                             @php
                                 $pembeli = \App\Models\Pembeli::where('user_id', '=', Session::get('user_id'))->first();
+                                if ($pembeli == null) {
+                                    Session::flush();
+                                }
 
                             @endphp
                             <a href="{{ route('front.order') }}" class="nav-item nav-link">My Order

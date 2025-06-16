@@ -59,12 +59,17 @@
                                                     <select name="ongkir[{{ $p->petani_id }}]" id="ongkir"
                                                         class="form-select">
                                                         <option value="">Pilih pengiriman</option>
-                                                        @foreach ($ongkir as $cost)
-                                                            <option value="{{ $cost['cost'] }}|{{ $cost['etd'] }}">
-                                                                {{ $cost['description'] }} | {{ $cost['etd'] }} -
-                                                                Rp{{ number_format($cost['cost']) }}
+                                                        @if ($ongkir != null)
+                                                            @foreach ($ongkir as $cost)
+                                                                <option value="{{ $cost['cost'] }}|{{ $cost['etd'] }}">
+                                                                    {{ $cost['description'] }} | {{ $cost['etd'] }} -
+                                                                    Rp{{ number_format($cost['cost']) }}
+                                                                </option>
+                                                            @endforeach
+                                                        @else
+                                                            <option value="">Tidak ada pengiriman yang mendukung.
                                                             </option>
-                                                        @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </td>

@@ -127,7 +127,7 @@ class HomeController extends Controller
                 'origin' => '34462',
                 'destination' => $destination,
                 'weight' => 1000,
-                'courier' => 'jne:sicepat:jnt'
+                'courier' => 'jne'
             ),
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
@@ -145,7 +145,7 @@ class HomeController extends Controller
         }
         $array_response = json_decode($response, TRUE);
         $ongkir = $array_response["data"];
-        // dd($destination);
+        // dd($response);
 
         // $detail = Detailpembelian::where('pembelian_id', '=', $pembelian->pembelian_id)->get();
         // $pembelian->status_pembelian = 'menunggu pembayaran';

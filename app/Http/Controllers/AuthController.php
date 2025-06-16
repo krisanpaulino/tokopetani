@@ -52,7 +52,6 @@ class AuthController extends Controller
             'alamat_jalan' => 'required',
             'lokasi_id' => 'required',
             'lokasi_string' => 'required',
-
         ]);
         $userdata = $request->validate([
             'username' => 'required|unique:user,username',

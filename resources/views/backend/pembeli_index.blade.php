@@ -41,10 +41,8 @@
                                         <th>No</th>
                                         <th>Nama</th>
                                         <th>Email</th>
-                                        <th>Alamat Jalan</th>
-                                        <th>Desa/Kelurahan</th>
-                                        <th>Kota</th>
-                                        <th>Provinsi</th>
+                                        <th>Alamat</th>
+
                                         <th>Riwayat</th>
                                         <th>Action</th>
                                     </tr>
@@ -58,10 +56,7 @@
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $r->nama_pembeli }}</td>
                                             <td>{{ $r->user->username }}</td>
-                                            <td>{{ $r->alaman_jalan }}</td>
-                                            <td>{{ $r->alamat_desa }}</td>
-                                            <td>{{ $r->city->city }}</td>
-                                            <td>{{ $r->province->province }}</td>
+                                            <td>{{ $r->alaman_jalan }}, {{ $r->lokasi_string }}</td>
                                             <td>{{ $r->pembelian->count() }} <a
                                                     href="{{ route('admin.riwayat-pembeli', $r->pembeli_id) }}"
                                                     class="text-primary">Lihat</a>

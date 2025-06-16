@@ -38,7 +38,7 @@ class PembeliController extends Controller
             'alamat_jalan' => 'required',
             'lokasi_id' => 'required',
             'lokasi_string' => 'required',
-            'alamat_kodepos' => 'required',
+
         ]);
         $pembeli_id = $request->pembeli_id;
         if (Session::get('type') == 'admin') {

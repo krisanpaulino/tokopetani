@@ -127,7 +127,7 @@ class HomeController extends Controller
                 'origin' => '34462',
                 'destination' => $destination,
                 'weight' => 1000,
-                'courier' => 'jne'
+                'courier' => 'jne:sicepat:jnt'
             ),
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,

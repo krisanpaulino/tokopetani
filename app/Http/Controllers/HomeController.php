@@ -124,7 +124,7 @@ class HomeController extends Controller
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_POSTFIELDS => array(
-                'origin' => '34462',
+                'origin' => '35096',
                 'destination' => $destination,
                 'weight' => 1000,
                 'courier' => 'jne'

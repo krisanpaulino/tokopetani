@@ -126,7 +126,7 @@ class TransaksiController extends Controller
             ->first();
         // dd($pengiriman);
         $pengiriman->status_pengiriman = 'dikirim';
-        $pengiriman->resi = $request->resi;
+        $pengiriman->resi = '-';
         $pengiriman->estimasi = date('Y-m-d', strtotime(date('Y-m-d') . ' +' . $pengiriman->estimasi));
         $pengiriman->update();
         return back()->with('message', 'succesToast("Berhasil proses pengiriman")');

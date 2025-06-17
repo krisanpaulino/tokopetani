@@ -151,12 +151,12 @@
                             <input type="hidden" name="pembelian_id" value="{{ $pembelian->pembelian_id }}">
                             <div class="modal-body">
                                 <div class="form-group mb-4">
-                                    <label for="">Nomor Resi</label>
+                                    {{-- <label for="">Nomor Resi</label>
                                     <input value="{{ old('resi') }}" type="text" name="resi"
                                         class="form-control @error('resi') is-invalid @enderror" required>
                                     @error('resi')
                                         <div class="text-danger">{{ $message }}</div>
-                                    @enderror
+                                    @enderror --}}
                                 </div>
                                 <div class="form-group mb-4">
                                     <label for="">Estimasi</label>

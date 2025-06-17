@@ -99,7 +99,7 @@ class ProdukController extends Controller
         foreach ($detail as $key => $data) {
             $data->pembelian->decrement('total_bayar', $data->produk->harga);
             if ($data->pembelian->total_harga == 0)
-                Pembelian::find($data->pembelian_id)->destroy();
+                Pembelian::destroy($data->pembelian_id);
         }
 
         Produk::destroy($produk_id);

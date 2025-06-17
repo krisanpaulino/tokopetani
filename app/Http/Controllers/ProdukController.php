@@ -97,7 +97,7 @@ class ProdukController extends Controller
             ->where('status_pembelian', '=', 'in cart')
             ->get();
         foreach ($detail as $key => $data) {
-            $data->pembelian->decrement('total_produk', $data->produk->harga);
+            $data->pembelian->decrement('total_bayar', $data->produk->harga);
             if ($data->pembelian->total_harga == 0)
                 Pembelian::find($data->pembelian_id)->destroy();
         }

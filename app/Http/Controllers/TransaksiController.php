@@ -80,6 +80,16 @@ class TransaksiController extends Controller
         $total = $pembelian->ongkir + $pembelian->total_bayar;
         return view('backend.order-detail', compact('pembelian', 'detail', 'ongkir', 'total', 'title'));
     }
+
+    function tolak(Request $request)
+    {
+        $pembelian_id = $request->pembelian_id;
+        $pembelian = Pembelian::find($pembelian_id);
+        $pembelian->status_pembelian = 'invalid';
+        $pembelian->update();
+
+        return back()->with('message', 'succesToast("Berhasil tolak pesanan")');
+    }
     function diproses()
     {
         $title = 'Order Diproses';
@@ -127,19 +137,35 @@ class TransaksiController extends Controller
         // dd($pengiriman);
         $pengiriman->status_pengiriman = 'dikirim';
         $pengiriman->resi = '-';
-        $pengiriman->estimasi = date('Y-m-d', strtotime(date('Y-m-d') . ' +' . $pengiriman->estimasi));
+        if ($pengiriman->estimasi != null) {
+            preg_match_all('/\d+/', $pengiriman->estimasi, $matches);
+            $estimasi = $matches[0];
+            $est = end($estimasi) . ' day';
+            $pengiriman->estimasi = date('Y-m-d', strtotime(date('Y-m-d') . ' +' . $est));
+        } else
+            $pengiriman->estimasi = date('Y-m-d', strtotime(date('Y-m-d') . ' +' . $request->estimasi));
         $pengiriman->update();
         return back()->with('message', 'succesToast("Berhasil proses pengiriman")');
     }
     function prosesPost(Request $request)
     {
+        $action = $request->action;
         $pembelian_id = $request->pembelian_id;
         $pembelian = Pembelian::find($pembelian_id);
-        $pembelian->status_pembelian = 'diproses';
-        $pembelian->update();
 
-        Pengiriman::where('pembelian_id', '=', $pembelian_id)->update(['status_pengiriman' => 'dikemas']);
-        return back()->with('message', 'succesToast("Berhasil proses pengiriman")');
+        if ($action == 'Proses') {
+
+            $pembelian->status_pembelian = 'diproses';
+            $pembelian->update();
+
+            Pengiriman::where('pembelian_id', '=', $pembelian_id)->update(['status_pengiriman' => 'dikemas']);
+            return back()->with('message', 'succesToast("Berhasil proses pengiriman")');
+        } else {
+            $pembelian->status_pembelian = 'batal';
+            $pembelian->update();
+
+            return back()->with('message', 'succesToast("Berhasil tolak pesanan")');
+        }
     }
     function selesaiPost(Request $request)
     {

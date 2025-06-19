@@ -61,10 +61,14 @@
                                                         <option value="">Pilih pengiriman</option>
                                                         @if ($ongkir != null)
                                                             @foreach ($ongkir as $cost)
-                                                                <option value="{{ $cost['cost'] }}|{{ $cost['etd'] }}">
-                                                                    {{ $cost['description'] }} | {{ $cost['etd'] }} -
-                                                                    Rp{{ number_format($cost['cost']) }}
-                                                                </option>
+                                                                @if ($cost['etd'] != null)
+                                                                    <option
+                                                                        value="{{ $cost['cost'] }}|{{ $cost['etd'] }}">
+                                                                        ({{ $cost['name'] }})
+                                                                        {{ $cost['description'] }} | {{ $cost['etd'] }} -
+                                                                        Rp{{ number_format($cost['cost']) }}
+                                                                    </option>
+                                                                @endif
                                                             @endforeach
                                                         @else
                                                             <option value="">Tidak ada pengiriman yang mendukung.

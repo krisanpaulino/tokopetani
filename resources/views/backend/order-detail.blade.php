@@ -218,7 +218,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary">Proses Pesanan</button>
+                                <input name="action" type="submit" value="Tolak" class="btn btn-danger">
+                                <input name="action" type="submit" value="Proses" class="btn btn-primary">
                             </div>
                         </form>
                     </div>

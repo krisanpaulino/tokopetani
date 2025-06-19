@@ -53,6 +53,9 @@ class AuthController extends Controller
             'lokasi_id' => 'required',
             'lokasi_string' => 'required',
         ]);
+        $lokasi = explode('|', $validated['lokasi_id']);
+        $validated['lokasi_id'] = $lokasi[0];
+        $validated['city_name'] = $lokasi[1];
         $userdata = $request->validate([
             'username' => 'required|unique:user,username',
             'user_password' => 'required|confirmed:password_confirmation',

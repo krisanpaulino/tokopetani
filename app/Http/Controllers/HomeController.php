@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use App\Models\Detailpembelian;
+use App\Models\Lokasitoko;
 use App\Models\Pembayaran;
 use App\Models\Produk;
 use App\Models\Pembeli;
@@ -116,6 +117,13 @@ class HomeController extends Controller
         $sumBerat = Detailpembelian::sum('jumlah_beli');
 
         $destination = $pembeli->lokasi_id;
+
+
+        //Lokasi Toko
+        $lokasi = Lokasitoko::first();
+
+        //Lokasi Pembeli
+
         $curl = curl_init();
         //         curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, 0);
         // curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, 0);
@@ -124,10 +132,10 @@ class HomeController extends Controller
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => "",
             CURLOPT_POSTFIELDS => array(
-                'origin' => '34462',
+                'origin' => '35096',
                 'destination' => $destination,
                 'weight' => 1000,
-                'courier' => 'jne'
+                'courier' => 'jne:sicepat:ide:sap:jnt:ninja:tiki:lion:anteraja:pos:ncs:rex:rpx:sentral:star:wahana:dse'
             ),
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
@@ -145,7 +153,15 @@ class HomeController extends Controller
         }
         $array_response = json_decode($response, TRUE);
         $ongkir = $array_response["data"];
-        // dd($response);
+        if ($pembeli->city_name == $lokasi->city_name) {
+            $ongkir[] = [
+                'cost' => 10000,
+                'etd' => '0 day',
+                'name' => 'Jasa Kirim Toko',
+                'description' => 'Berlaku dalam kota yang sama',
+            ];
+        }
+        // dd($array_response);
 
         // $detail = Detailpembelian::where('pembelian_id', '=', $pembelian->pembelian_id)->get();
         // $pembelian->status_pembelian = 'menunggu pembayaran';

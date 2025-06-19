@@ -45,7 +45,7 @@ class AjaxController extends Controller
         $result = [];
         foreach ($array_response['data'] as $key => $res) {
             $result[$key] = [
-                'id' => $res['id'],
+                'id' => $res['id'] . '|' . $res['city_name'],
                 'text' => $res['label']
             ];
         }

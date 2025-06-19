@@ -40,6 +40,9 @@ class PembeliController extends Controller
             'lokasi_string' => 'required',
 
         ]);
+        $lokasi = explode('|', $validated['lokasi_id']);
+        $validated['lokasi_id'] = $lokasi[0];
+        $validated['city_name'] = $lokasi[1];
         $pembeli_id = $request->pembeli_id;
         if (Session::get('type') == 'admin') {
             $pembeli = Pembeli::find($pembeli_id);
@@ -53,6 +56,7 @@ class PembeliController extends Controller
             $user->update($userdata);
         }
         if (Session::get('type') == 'pembeli') {
+
             $pembeli = Pembeli::where('user_id', '=', Session::get('user_id'))->first();
             $userdata = $request->validate([
                 'username' => ['required', Rule::unique('user', 'username')->ignore(Session::get('user_id'), 'user_id')],

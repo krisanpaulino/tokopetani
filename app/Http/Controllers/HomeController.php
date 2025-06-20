@@ -135,7 +135,7 @@ class HomeController extends Controller
                 'origin' => '35096',
                 'destination' => $destination,
                 'weight' => 1000,
-                'courier' => 'jne:sicepat:ide:sap:jnt:ninja:tiki:lion:anteraja:pos:ncs:rex:rpx:sentral:star:wahana:dse'
+                'courier' => 'lion'
             ),
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,

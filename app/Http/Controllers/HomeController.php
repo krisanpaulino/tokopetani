@@ -93,8 +93,12 @@ class HomeController extends Controller
     }
     function deleteCart(Request $request): RedirectResponse
     {
-        // $pembeli = Pembeli::where('user_id', '=', Session::get('user_id'))->first();
-        Detailpembelian::destroy($request->detailpembelian_id);
+
+        $detailpembelian_id  = $request->detailpembelian_id;
+        $datadetail = Detailpembelian::find($detailpembelian_id);
+
+        Pembelian::where('pembelian_id', $datadetail->pembelian_id)->decrement('total_bayar', $datadetail->harga_detail);
+        Detailpembelian::destroy($detailpembelian_id);
         return back();
     }
     function checkout($pembelian_id)

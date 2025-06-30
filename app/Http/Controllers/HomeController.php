@@ -280,4 +280,12 @@ class HomeController extends Controller
         $pembeli = Pembeli::where('user_id', '=', Session::get('user_id'))->first();
         return view('frontend.profil-edit', compact('user', 'title', 'pembeli', 'provinsi', 'kota'));
     }
+    function komplain(Request $request)
+    {
+        $pembelian_id = $request->pembelian_id;
+        $pembelian = Pembelian::find($pembelian_id);
+        $pembelian->status_pembelian = 'belum diterima';
+        $pembelian->save();
+        return back()->with('message', "successToast('Komplain berhasil dikirim, silahkan menunggu respon admin')");
+    }
 }

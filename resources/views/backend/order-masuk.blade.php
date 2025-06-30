@@ -1,4 +1,4 @@
-@extends('template.'.Session::get('type'))
+@extends('template.' . Session::get('type'))
 @section('content')
     <div class="breadcrumbs">
         <div class="breadcrumbs-inner">
@@ -53,7 +53,10 @@
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>{{ $r->tanggal_pesan }}</td>
-                                            <td>{{ $r->status_pembelian }}</td>
+                                            <td>{{ $r->status_pembelian }} @if ($r->status_pembelian == 'belum diterima')
+                                                    <span class="badge bg-danger"><i class="fa fa-exclamation"></i></span>
+                                                @endif
+                                            </td>
                                             <td>{{ $r->pembeli->nama_pembeli }}</td>
                                             <td>
                                                 <a class="btn btn-link btn-sm"

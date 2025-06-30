@@ -222,13 +222,53 @@
                                     class="btn border-secondary py-3 px-4 text-uppercase text-primary">Upload
                                     Butki</button>
                         @endif
+                        @php
+                            $estimasi = $pembelian->pengiriman->where('status_pengiriman', 'dikirim')->first();
+                        @endphp
+                        @if ($pembelian->status_pembelian = 'diproses' && $estimasi != null && strtotime(date('Y-m-d')) >= strtotime($estimasi))
+                            <div class="row g-4 text-end align-items-center justify-content-center pt-4">
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#complain"
+                                    data-id="{{ $pembelian->pembelian_id }}"
+                                    class="btn border-secondary py-3 px-4 text-uppercase text-primary">Pesanan Belum
+                                    Diterima</button>
+                        @endif
                     </div>
                 </div>
         </div>
         </form>
     </div>
+
     </div>
     <!-- Checkout Page End -->
+
+    <div class="modal fade" id="complain" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="{{ route('komplain') }}" method="post">
+                    <div class="modal-body d-flex align-items-center">
+                        @csrf
+                        <input type="hidden" name="pembelian_id" id="kode" value>
+                        <div class="row">
+                            <h6>Beritahu admin bahwa pesanan belum diterima?</h6>
+                        </div>
+                    </div>
+
+                    <div class="text-end">
+                        <button type="submit"
+                            class="btn border border-secondary rounded-pill px-3 text-primary">Ya</button>
+                        <button type="button" class="btn border border-secondary rounded-pill px-3 text-secondary"
+                            data-bs-dismiss="modal">Tidak</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
 @endsection
 @section('jsplugins')
     <script src="{{ asset('assets') }}/js/jquery.countdown.min.js"></script>
@@ -248,6 +288,10 @@
             console.log('here');
 
             $(this).html(event.strftime('%H:%M:%S'));
+        });
+        $('#complain').on('show.bs.modal', function(event) {
+            var kode = $(event.relatedTarget).data('id');
+            $(this).find('#kode').attr("value", kode);
         });
     </script>
 @endsection

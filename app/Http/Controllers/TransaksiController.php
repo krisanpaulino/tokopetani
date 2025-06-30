@@ -95,7 +95,7 @@ class TransaksiController extends Controller
         $title = 'Order Diproses';
 
         if ($this->user->user_type == 'admin')
-            $pembelian = Pembelian::where('status_pembelian', '=', 'diproses')->get();
+            $pembelian = Pembelian::where('status_pembelian', '=', 'diproses')->orWhere('status_pembelian', '=', 'belum diterima')->get();
         else
             $pembelian = Pembelian::join('detailpembelian', 'detailpembelian.pembelian_id', '=', 'pembelian.pembelian_id')
                 ->join('produk', 'detailpembelian.produk_id', '=', 'produk.produk_id')

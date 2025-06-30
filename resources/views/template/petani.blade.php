@@ -83,6 +83,14 @@
 </head>
 
 <body>
+    @php
+        $user = App\Models\User::where('username', Session::get('email'))->first();
+        $complain = App\Models\Pembelian::where('status_pembelian', '=', 'belum diterima')
+            ->join('detailpembelian', 'detailpembelian.pembelian_id', 'pembelian.pembelian_id')
+            ->join('produk', 'produk.produk_id', 'detailpembelian.produk_id')
+            ->where('produk.petani_id', $user->petani->petani_id)
+            ->count('pembelian.pembelian_id');
+    @endphp
     <!-- Left Panel -->
     <aside id="left-panel" class="left-panel bg-success">
         <nav class="navbar navbar-expand-sm navbar-default bg-success">
@@ -101,7 +109,10 @@
                     <li class="menu-item-has-children dropdown">
                         <a class="text-light" href="#" class="dropdown-toggle" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false"> <i
-                                class="menu-icon text-light ti-shopping-cart"></i>Order</a>
+                                class="menu-icon text-light ti-shopping-cart"></i>Order @if ($complain > 0)
+                                <span class="badge bg-danger"><i class="fa fa-exclamation"></i></span>
+                            @endif
+                        </a>
                         <ul class="sub-menu children dropdown-menu bg-success">
                             <li class="menu-item">
                                 <a class="text-light" href="{{ route(Session::get('type') . '.order') }}"> Semua </a>
@@ -113,7 +124,9 @@
                             </li>
                             <li class="menu-item">
                                 <a class="text-light" href="{{ route(Session::get('type') . '.order.diproses') }}">
-                                    Orderan Diproses
+                                    Orderan Diproses @if ($complain > 0)
+                                        <span class="badge bg-danger">.</span>
+                                    @endif
                                 </a>
                             </li>
                             <li class="menu-item">

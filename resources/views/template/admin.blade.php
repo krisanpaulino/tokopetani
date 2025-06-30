@@ -79,6 +79,9 @@
 
 <body>
     <!-- Left Panel -->
+    @php
+        $complain = App\Models\Pembelian::where('status_pembelian', '=', 'belum diterima')->count('pembelian_id');
+    @endphp
     <aside id="left-panel" class="left-panel bg-success">
         <nav class="navbar navbar-expand-sm navbar-default bg-success">
             <div id="main-menu" class="main-menu collapse navbar-collapse">
@@ -104,7 +107,10 @@
                     <li class="menu-item-has-children dropdown text-light">
                         <a style="color: #ffffff" href="#" class="dropdown-toggle text-lights"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i style="color: #ffffff"
-                                class="menu-icon ti-shopping-cart"></i>Order</a>
+                                class="menu-icon ti-shopping-cart"></i>Order @if ($complain > 0)
+                                <span class="badge bg-danger"><i class="fa fa-exclamation"></i></span>
+                            @endif
+                        </a>
                         <ul class="sub-menu children dropdown-menu bg-success">
                             <li class="menu-item">
                                 <a style="color: #ffffff" href="{{ route(Session::get('type') . '.order') }}"> Semua
@@ -117,7 +123,9 @@
                             </li>
                             <li class="menu-item">
                                 <a style="color: #ffffff" href="{{ route(Session::get('type') . '.order.diproses') }}">
-                                    Orderan Diproses
+                                    Orderan Diproses @if ($complain > 0)
+                                        <span class="badge bg-danger">.</span>
+                                    @endif
                                 </a>
                             </li>
                             <li class="menu-item">

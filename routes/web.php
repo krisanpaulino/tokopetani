@@ -37,6 +37,7 @@ Route::post('/cart/delete', [HomeController::class, 'deleteCart'])->name('cart.d
 Route::get('/checkout/{id}', [HomeController::class, 'checkout'])->name('checkout')->middleware(PembeliLogin::class);
 Route::get('/order/{id}', [HomeController::class, 'detail'])->name('order.detail')->middleware(PembeliLogin::class);
 Route::post('/order/upload', [HomeController::class, 'uploadBukti'])->name('order.upload')->middleware(PembeliLogin::class);
+Route::post('/komplain', [HomeController::class, 'komplain'])->name('komplain')->middleware(PembeliLogin::class);
 
 Route::get('/ajax-carilokasi', [AjaxController::class, 'lokasi'])->name('ajax.getLokasi');
 Route::get('/ajax-cost', [AjaxController::class, 'cost'])->name('ajax.getCost');
